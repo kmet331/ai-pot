@@ -652,8 +652,7 @@ const FILL_SETS = [
   },
 ];
 
-/* ---------- 세트 선택: 직전 회차와 같은 세트 연속 방지 ---------- */
-let lastShortIdx = -1;
+/* ---------- 세트 선택: 직전 회차와 같은 세트 연속 방지 (36~40 지시문 세트에만 적용) ---------- */
 let lastFillIdx = -1;
 function pickSetIndex(count, last) {
   if (count <= 1) return 0;
@@ -663,7 +662,7 @@ function pickSetIndex(count, last) {
 }
 
 function buildSession() {
-  // 1~30 스테이지: 문제 은행 랜덤(OX·객관식) / 31~35: 단답형 주관식 / 36~40: 지시문 주관식
+  // 1~30 스테이지: 문제 은행 랜덤(OX·객관식) / 31~35: 단답형 주관식(개별 풀에서 랜덤 5개) / 36~40: 지시문 주관식(세트 유지)
   const base = shuffle(QUESTION_BANK).slice(0, TOTAL - 10).map((q, i) => {
     if (q.type === "mc") {
       const choices = shuffle(q.choices);
@@ -671,9 +670,9 @@ function buildSession() {
     }
     return { ...q, stage: i + 1 };
   });
-  const si = pickSetIndex(SHORT_SETS.length, lastShortIdx); lastShortIdx = si;
-  const shortSet = SHORT_SETS[si];
-  const shorts = shortSet.items.map((it, k) => ({
+  // 단답형 세트들을 하나의 풀로 펼쳐 문항 단위로 랜덤 추출 (같은 세트일 필요 없음)
+  const shortPool = SHORT_SETS.flatMap(set => set.items.map(it => ({ ...it, setName: set.name, mock: set.mock || false })));
+  const shorts = shuffle(shortPool).slice(0, 5).map((it, k) => ({
     type: "short",
     stage: TOTAL - 10 + k + 1,
     q: it.q,
@@ -681,8 +680,8 @@ function buildSession() {
     answerDisplay: it.answerDisplay,
     accepted: it.accepted,
     explain: it.explain,
-    setName: shortSet.name,
-    mock: shortSet.mock || false,
+    setName: it.setName,
+    mock: it.mock,
   }));
   const fi = pickSetIndex(FILL_SETS.length, lastFillIdx); lastFillIdx = fi;
   const fillSet = FILL_SETS[fi];
@@ -1063,7 +1062,7 @@ function AiPotQuest() {
           <div style={{ textAlign: "left", margin: "18px auto", maxWidth: 460, fontSize: 14, lineHeight: 1.6, color: C.text, background: "rgba(0,0,0,0.25)", borderRadius: 12, padding: "14px 18px", border: `1px solid ${C.line}` }}>
             <div style={{ marginBottom: 10 }}>🎮 총 <b style={{ color: C.gold }}>40개 스테이지</b> — 문제 1개 = 스테이지 1개</div>
             <div style={{ marginBottom: 10 }}>🎲 문제은행 <b style={{ color: C.cyan }}>{QUESTION_BANK.length}문항</b> 중 매 회차 랜덤 출제 (이어하기 없음)</div>
-            <div style={{ marginBottom: 10 }}>⭕ OX·객관식(1~30) + 단답형 주관식(31~35) + 지시문 주관식(36~40)</div>
+            <div style={{ marginBottom: 10 }}>⭕ OX·객관식(1~30) + 단답형 주관식(31~35, 문항 풀에서 랜덤 5개) + 지시문 주관식(36~40)</div>
             <div style={{ marginBottom: 10 }}>🏆 정답이면 금색, 오답이면 붉은 스테이지로 표시</div>
             <div style={{ marginBottom: 10 }}>◀▶ 이전/다음 버튼과 해설 패널 클릭으로 푼 문제를 다시 볼 수 있어요 (답안 수정 불가)</div>
             <div>📋 우측 <b>문제 해설</b> 패널에 풀이 기록과 해설이 쌓입니다</div>
