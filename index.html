@@ -889,10 +889,11 @@ function AiPotQuest() {
   const [phase, setPhase] = useState("intro");           // intro | quiz | done
   const [idx, setIdx] = useState(0);                     // 현재 화면에 표시 중인 문제 (0-based)
   const [selected, setSelected] = useState(null);        // 아직 제출 전인 임시 선택/입력값
-  const [history, setHistory] = useState([]);            // {stage,q,type,correct,userAns,answerText,explain,sel}
+  const [answers, setAnswers] = useState(() => Array(TOTAL).fill(null)); // 스테이지 인덱스에 고정된 풀이 기록
   const [panelOpen, setPanelOpen] = useState(false);
   const resultsRef = useRef(Array(TOTAL).fill(null));    // 3D 플랫폼 색상용
   const panelBodyRef = useRef(null);
+  const itemRefs = useRef({});                           // 해설 패널의 스테이지별 DOM 참조 (자동 스크롤용)
   const hudRef = useRef(null);
   const footRef = useRef(null);
   const [safeTop, setSafeTop] = useState(64);            // 상단바 실제 높이 (모바일 2줄 대응)
@@ -908,14 +909,14 @@ function AiPotQuest() {
     window.addEventListener("resize", update);
     const tid = setTimeout(update, 400); // 폰트 로드 후 재측정
     return () => { window.removeEventListener("resize", update); clearTimeout(tid); };
-  }, [phase, panelOpen, history.length]);
+  }, [phase, panelOpen, answers]);
 
   const q = session[idx];
-  const rec = history[idx];              // 이 문제의 풀이 기록 (있으면 이미 답변 완료 → 복습 모드)
+  const rec = answers[idx];              // 이 문제의 풀이 기록 (있으면 이미 답변 완료 → 복습 모드)
   const answered = !!rec;
-  const frontier = history.length;       // 아직 풀지 않은 첫 문제의 인덱스
+  const answeredCount = answers.filter(Boolean).length;
   const sel = answered ? rec.sel : selected; // 화면 하이라이트용 선택값
-  const score = history.filter(h => h.correct).length;
+  const score = answers.filter(a => a && a.correct).length;
 
   useEffect(() => {
     // 폰트 로드
@@ -927,12 +928,14 @@ function AiPotQuest() {
   }, []);
 
   useEffect(() => {
-    // 해설 패널 자동 스크롤 (최신 기록으로)
-    if (panelBodyRef.current) panelBodyRef.current.scrollTop = panelBodyRef.current.scrollHeight;
-  }, [history]);
+    // 해설 패널: 패널이 열려 있거나 문제를 이동할 때 현재 스테이지 카드로 자동 스크롤
+    if (panelOpen && itemRefs.current[idx]) {
+      itemRefs.current[idx].scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+  }, [idx, panelOpen]);
 
   const answer = useCallback((ans) => {
-    if (phase !== "quiz" || idx !== history.length) return; // 이미 푼 문제는 답안 수정 불가
+    if (phase !== "quiz" || answers[idx]) return; // 이미 푼 문제는 답안 수정 불가
     const isCorrect = q.type === "ox" ? ans === q.answer
       : q.type === "fill" ? ans === q.answer
       : q.type === "short" ? q.accepted.includes(norm(ans))
@@ -947,12 +950,16 @@ function AiPotQuest() {
       : q.choices[ans];
     setSelected(ans);
     resultsRef.current[idx] = isCorrect;
-    setHistory(h => [...h, { stage: idx + 1, q: q.q, type: q.type, correct: isCorrect, userAns: userAnsText, answerText, explain: q.explain, sel: ans, mock: q.mock || false }]);
-  }, [phase, q, idx, history.length]);
+    setAnswers(prev => {
+      const next = [...prev];
+      next[idx] = { stage: idx + 1, q: q.q, type: q.type, correct: isCorrect, userAns: userAnsText, answerText, explain: q.explain, sel: ans, mock: q.mock || false };
+      return next;
+    });
+  }, [phase, q, idx, answers]);
 
-  // 문제 이동 (푼 문제 + 다음 미답변 문제까지만 이동 가능)
+  // 문제 이동 — 풀었든 안 풀었든 전체 40문제를 자유롭게 오갈 수 있습니다
   const goTo = (i) => {
-    if (i < 0 || i >= TOTAL || i > history.length) return;
+    if (i < 0 || i >= TOTAL) return;
     setIdx(i);
     setSelected(null);
     setPhase("quiz");
@@ -966,7 +973,7 @@ function AiPotQuest() {
   const restart = () => {
     resultsRef.current = Array(TOTAL).fill(null);
     setVersion(v => v + 1);
-    setHistory([]);
+    setAnswers(Array(TOTAL).fill(null));
     setIdx(0);
     setSelected(null);
     setPhase("intro");
@@ -1032,7 +1039,7 @@ function AiPotQuest() {
             <div style={S.chip}>STAGE <b style={{ color: C.gold }}>{Math.min(idx + 1, TOTAL)}</b> / {TOTAL}</div>
             <div style={S.chip}>SCORE <b style={{ color: C.cyan }}>{score}</b></div>
             <div style={{ flex: 1, maxWidth: 260, height: 8, background: "rgba(255,255,255,0.08)", borderRadius: 99, overflow: "hidden" }}>
-              <div style={{ width: `${(history.length / TOTAL) * 100}%`, height: "100%", background: `linear-gradient(90deg, ${C.cyan}, ${C.gold})`, transition: "width .4s" }} />
+              <div style={{ width: `${(answeredCount / TOTAL) * 100}%`, height: "100%", background: `linear-gradient(90deg, ${C.cyan}, ${C.gold})`, transition: "width .4s" }} />
             </div>
           </>
         )}
@@ -1046,7 +1053,7 @@ function AiPotQuest() {
                 ? { animation: "hintPulse 4.6s ease-in-out infinite", border: `1px solid ${C.gold}` }
                 : {}),
             }}>
-            📋 문제 해설 {panelOpen ? "닫기" : `열기 (${history.length})`}
+            📋 문제 해설 {panelOpen ? "닫기" : `열기 (${answeredCount}/${TOTAL})`}
           </button>
         </div>
       </div>
@@ -1064,7 +1071,7 @@ function AiPotQuest() {
             <div style={{ marginBottom: 10 }}>🎲 문제은행 <b style={{ color: C.cyan }}>{QUESTION_BANK.length}문항</b> 중 매 회차 랜덤 출제 (이어하기 없음)</div>
             <div style={{ marginBottom: 10 }}>⭕ OX·객관식(1~30) + 단답형 주관식(31~35, 문항 풀에서 랜덤 5개) + 지시문 주관식(36~40)</div>
             <div style={{ marginBottom: 10 }}>🏆 정답이면 금색, 오답이면 붉은 스테이지로 표시</div>
-            <div style={{ marginBottom: 10 }}>◀▶ 이전/다음 버튼과 해설 패널 클릭으로 푼 문제를 다시 볼 수 있어요 (답안 수정 불가)</div>
+            <div style={{ marginBottom: 10 }}>◀▶ 이전/다음 버튼과 해설 패널로 40문제를 어떤 순서로든 자유롭게 이동할 수 있어요 (푼 문제는 수정 불가)</div>
             <div>📋 우측 <b>문제 해설</b> 패널에 풀이 기록과 해설이 쌓입니다</div>
           </div>
           <button style={S.primary} onClick={() => setPhase("quiz")}>게임 시작 ▶</button>
@@ -1087,12 +1094,12 @@ function AiPotQuest() {
             )}
             <span style={{ marginLeft: "auto", display: "flex", gap: 6 }}>
               <button onClick={() => goTo(idx - 1)} disabled={idx === 0} style={S.nav(idx === 0)}>◀ 이전</button>
-              <button onClick={() => goTo(idx + 1)} disabled={idx + 1 > frontier || idx + 1 >= TOTAL} style={S.nav(idx + 1 > frontier || idx + 1 >= TOTAL)}>다음 ▶</button>
-              {frontier >= TOTAL && <button onClick={() => setPhase("done")} style={S.nav(false)}>🏁 결과</button>}
+              <button onClick={() => goTo(idx + 1)} disabled={idx + 1 >= TOTAL} style={S.nav(idx + 1 >= TOTAL)}>다음 ▶</button>
+              <button onClick={() => setPhase("done")} style={S.nav(false)}>🏁 결과</button>
             </span>
           </div>
-          {answered && idx < frontier && (
-            <div style={{ fontSize: 11.5, color: C.dim, marginBottom: 10 }}>🔒 풀이가 완료된 문제입니다 — 답안 수정은 불가능합니다</div>
+          {answered && (
+            <div style={{ fontSize: 11.5, color: C.dim, marginBottom: 10 }}>🔒 이미 풀이를 완료한 문제입니다 — 답안 수정은 불가능합니다</div>
           )}
 
           {/* 지시문 주관식: 전체 지시문 상시 노출 (현재 빈칸 강조) */}
@@ -1224,10 +1231,15 @@ function AiPotQuest() {
               <div style={{ background: "rgba(0,0,0,0.28)", border: `1px solid ${rec.correct ? "rgba(255,207,92,.4)" : "rgba(255,116,136,.4)"}`, borderRadius: 12, padding: "14px 16px", fontSize: 14, lineHeight: 1.75 }}>
                 <b style={{ color: C.cyan }}>📖 해설</b><br />{q.explain}
               </div>
-              <div style={{ textAlign: "center", marginTop: 16 }}>
-                <button style={S.primary} onClick={next}>
-                  {idx + 1 >= TOTAL ? "최종 결과 보기 🏁" : idx + 1 === frontier ? "다음 문제 풀기 ▶" : "다음 문제 ▶"}
+              <div style={{ textAlign: "center", marginTop: 16, display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
+                <button style={S.primary} onClick={idx + 1 >= TOTAL ? () => setPhase("done") : next}>
+                  {idx + 1 >= TOTAL ? "결과 보기 🏁" : "다음 문제 ▶"}
                 </button>
+                {answeredCount < TOTAL && (
+                  <button style={S.nav(false)} onClick={() => { const first = answers.findIndex(a => !a); if (first !== -1) goTo(first); }}>
+                    안 푼 문제로 이동
+                  </button>
+                )}
               </div>
             </div>
           )}
@@ -1239,19 +1251,34 @@ function AiPotQuest() {
       {phase === "done" && (
         <div style={S.cardWrap}>
         <div style={{ ...S.card, textAlign: "center" }}>
-          <div style={{ ...S.display, fontSize: 36, color: C.gold }}>🏁 ALL STAGE COMPLETE</div>
+          <div style={{ ...S.display, fontSize: 36, color: C.gold }}>
+            {answeredCount >= TOTAL ? "🏁 ALL STAGE COMPLETE" : "📊 현재까지의 결과"}
+          </div>
           <div style={{ fontSize: 52, ...S.display, margin: "12px 0 2px", color: score >= 24 ? C.cyan : C.red }}>
             {score} <span style={{ fontSize: 22, color: C.dim }}>/ {TOTAL}</span>
           </div>
           <div style={{ color: C.dim, marginBottom: 6 }}>{Math.round((score / TOTAL) * 100)}점</div>
-          <div style={{ fontSize: 15, marginBottom: 18 }}>
-            {score >= 32 ? "🌟 훌륭합니다! 합격 안정권 실력이에요." : score >= 24 ? "✅ 합격 기준(60점)을 넘었습니다. 오답 해설을 복습해 보세요!" : "📚 아직 부족해요. 우측 문제 해설에서 틀린 문제를 꼭 복습하세요!"}
-          </div>
+          {answeredCount < TOTAL ? (
+            <div style={{ fontSize: 14, color: C.gold, marginBottom: 18 }}>
+              ⚠ 아직 풀지 않은 문제가 {TOTAL - answeredCount}개 있습니다. 미응시 문제는 오답으로 계산되지 않고 점수에서 제외됩니다.
+            </div>
+          ) : (
+            <div style={{ fontSize: 15, marginBottom: 18 }}>
+              {score >= 32 ? "🌟 훌륭합니다! 합격 안정권 실력이에요." : score >= 24 ? "✅ 합격 기준(60점)을 넘었습니다. 오답 해설을 복습해 보세요!" : "📚 아직 부족해요. 우측 문제 해설에서 틀린 문제를 꼭 복습하세요!"}
+            </div>
+          )}
           <div style={{ fontSize: 13, color: C.dim, marginBottom: 18 }}>
-            우측 '문제 해설' 패널에서 이번 회차 전체 40문제의 정답·오답과 해설을 확인할 수 있습니다.<br />
+            우측 '문제 해설' 패널에서 전체 40문제의 정답·오답과 해설을 확인하고, 클릭해서 원하는 문제로 이동할 수 있습니다.<br />
             (이어하기가 없으므로 다시 도전하면 새로운 순서로 출제됩니다)
           </div>
-          <button style={S.primary} onClick={restart}>🎲 새 모의고사 도전</button>
+          <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
+            {answeredCount < TOTAL && (
+              <button style={S.nav(false)} onClick={() => { const first = answers.findIndex(a => !a); if (first !== -1) goTo(first); }}>
+                ▶ 안 푼 문제부터 이어 풀기
+              </button>
+            )}
+            <button style={S.primary} onClick={restart}>🎲 새 모의고사 도전</button>
+          </div>
         </div>
         </div>
       )}
@@ -1277,40 +1304,57 @@ function AiPotQuest() {
         <div style={{ padding: "14px 16px 10px", borderBottom: `1px solid ${C.line}`, display: "flex", alignItems: "center", gap: 8 }}>
           <span style={{ ...S.display, fontSize: 18, color: C.cyan }}>📋 문제 해설</span>
           <span style={{ fontSize: 12, color: C.dim, marginLeft: "auto" }}>
-            <span style={{ color: C.gold }}>정답 {history.filter(h => h.correct).length}</span> · <span style={{ color: C.red }}>오답 {history.filter(h => !h.correct).length}</span>
+            <span style={{ color: C.gold }}>정답 {answers.filter(a => a && a.correct).length}</span> · <span style={{ color: C.red }}>오답 {answers.filter(a => a && !a.correct).length}</span> · <span>미응시 {TOTAL - answeredCount}</span>
           </span>
         </div>
         <div ref={panelBodyRef} style={{ flex: 1, overflowY: "auto", padding: "12px 12px 16px", display: "flex", flexDirection: "column", gap: 10 }}>
-          {history.length === 0 && (
-            <div style={{ color: C.dim, fontSize: 13, textAlign: "center", marginTop: 30, lineHeight: 1.8 }}>
-              아직 풀이 기록이 없습니다.<br />문제를 풀면 정답·오답과 해설이<br />이곳에 하나씩 쌓입니다.
-            </div>
-          )}
-          {history.map((h, i) => (
-            <div key={i} onClick={() => goTo(h.stage - 1)} title="클릭하면 이 문제로 이동합니다 (답안 수정 불가)"
-              style={{
-              cursor: "pointer",
-              border: `1px solid ${phase === "quiz" && idx === h.stage - 1 ? C.cyan : h.correct ? "rgba(255,207,92,.45)" : "rgba(255,116,136,.5)"}`,
-              background: h.correct ? "rgba(255,207,92,.07)" : "rgba(255,116,136,.08)",
-              borderRadius: 12, padding: "10px 12px", fontSize: 12.5, lineHeight: 1.65,
-              boxShadow: phase === "quiz" && idx === h.stage - 1 ? `0 0 10px rgba(53,224,255,.35)` : "none"
-            }}>
-              <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
-                <b style={{ color: h.correct ? C.gold : C.red, fontFamily: "'Jua','Spoqa Han Sans',sans-serif", fontSize: 14 }}>
-                  {h.correct ? "⭕ 정답" : "❌ 오답"}
-                </b>
-                <span style={{ color: C.dim }}>STAGE {h.stage} · {h.type === "ox" ? "OX" : h.type === "fill" ? "지시문" : h.type === "short" ? "단답형" : "객관식"}</span>
-                {h.mock && <span style={{ fontSize: 10.5, color: "#C9A8FF" }}>예상문제</span>}
-                <span style={{ marginLeft: "auto", color: C.dim, fontSize: 11 }}>↩ 다시 보기</span>
+          {Array.from({ length: TOTAL }, (_, i) => {
+            const h = answers[i];
+            const isCurrent = phase === "quiz" && idx === i;
+            if (h) {
+              return (
+                <div key={i} ref={(el) => { itemRefs.current[i] = el; }} onClick={() => goTo(i)} title="클릭하면 이 문제로 이동합니다 (답안 수정 불가)"
+                  style={{
+                  cursor: "pointer",
+                  border: `1px solid ${isCurrent ? C.cyan : h.correct ? "rgba(255,207,92,.45)" : "rgba(255,116,136,.5)"}`,
+                  background: h.correct ? "rgba(255,207,92,.07)" : "rgba(255,116,136,.08)",
+                  borderRadius: 12, padding: "10px 12px", fontSize: 12.5, lineHeight: 1.65,
+                  boxShadow: isCurrent ? `0 0 10px rgba(53,224,255,.35)` : "none"
+                }}>
+                  <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 4 }}>
+                    <b style={{ color: h.correct ? C.gold : C.red, fontFamily: "'Jua','Spoqa Han Sans',sans-serif", fontSize: 14 }}>
+                      {h.correct ? "⭕ 정답" : "❌ 오답"}
+                    </b>
+                    <span style={{ color: C.dim }}>STAGE {h.stage} · {h.type === "ox" ? "OX" : h.type === "fill" ? "지시문" : h.type === "short" ? "단답형" : "객관식"}</span>
+                    {h.mock && <span style={{ fontSize: 10.5, color: "#C9A8FF" }}>예상문제</span>}
+                    <span style={{ marginLeft: "auto", color: C.dim, fontSize: 11 }}>↩ 다시 보기</span>
+                  </div>
+                  <div style={{ fontWeight: 600, marginBottom: 5 }}>{h.q}</div>
+                  {!h.correct && <div style={{ color: C.red, marginBottom: 2 }}>내 답: {h.userAns}</div>}
+                  <div style={{ color: C.gold, marginBottom: 5 }}>정답: {h.answerText}</div>
+                  <div style={{ color: "#C7D2F5", borderTop: "1px dashed rgba(255,255,255,.15)", paddingTop: 5 }}>
+                    💡 {h.explain}
+                  </div>
+                </div>
+              );
+            }
+            return (
+              <div key={i} ref={(el) => { itemRefs.current[i] = el; }} onClick={() => goTo(i)} title="클릭하면 이 문제로 이동합니다"
+                style={{
+                cursor: "pointer",
+                border: `1px dashed ${isCurrent ? C.cyan : C.line}`,
+                opacity: isCurrent ? 1 : 0.55,
+                borderRadius: 12, padding: "10px 12px", fontSize: 12.5, lineHeight: 1.6,
+                boxShadow: isCurrent ? `0 0 10px rgba(53,224,255,.3)` : "none"
+              }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                  <b style={{ color: C.dim, fontFamily: "'Jua','Spoqa Han Sans',sans-serif", fontSize: 14 }}>STAGE {i + 1}</b>
+                  <span style={{ marginLeft: "auto", color: C.dim, fontSize: 11 }}>👉 풀러 가기</span>
+                </div>
+                <div style={{ color: C.dim, marginTop: 2 }}>🔲 아직 풀지 않은 문제입니다</div>
               </div>
-              <div style={{ fontWeight: 600, marginBottom: 5 }}>{h.q}</div>
-              {!h.correct && <div style={{ color: C.red, marginBottom: 2 }}>내 답: {h.userAns}</div>}
-              <div style={{ color: C.gold, marginBottom: 5 }}>정답: {h.answerText}</div>
-              <div style={{ color: "#C7D2F5", borderTop: "1px dashed rgba(255,255,255,.15)", paddingTop: 5 }}>
-                💡 {h.explain}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
