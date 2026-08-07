@@ -395,6 +395,123 @@ const QUESTION_BANK = [
     explain: "CCL은 저작자 표시(BY), 비영리(NC), 변경 금지(ND) 등 저작자가 정한 이용 조건을 지키는 범위에서만 자유 이용을 허락하는 라이선스입니다. (예상문제)" },
   { type: "ox", mock: true, q: "생성형 AI는 같은 질문을 입력해도 매번 조금씩 다른 답변을 생성할 수 있다.", answer: true,
     explain: "생성형 AI는 확률적 샘플링으로 답을 만들기 때문에 동일한 프롬프트라도 출력이 달라질 수 있습니다. 온도를 낮추면 일관성이 높아집니다. (예상문제)" },
+
+  /* ===== 자작 예상문제 2차 추가분 (40문항, mock: true) ===== */
+  { type: "mc", mock: true, q: "사람 중심 인공지능 윤리기준에서 제시하는 '최고 가치'는?",
+    choices: ["인간성(Humanity)", "효율성(Efficiency)", "수익성(Profitability)", "정확성(Accuracy)"], answerText: "인간성(Humanity)",
+    explain: "사람 중심 인공지능 윤리기준은 '인간성(Humanity)'을 최고 가치로 삼고, 이를 실현하기 위한 3대 기본원칙과 10대 핵심요건을 제시합니다. (예상문제)" },
+  { type: "mc", mock: true, q: "사람 중심 인공지능 윤리기준의 3대 기본원칙에 해당하지 않는 것은?",
+    choices: ["인간 존엄성 원칙", "사회의 공공선 원칙", "기술의 합목적성 원칙", "기술의 효율성 원칙"], answerText: "기술의 효율성 원칙",
+    explain: "3대 기본원칙은 인간 존엄성 원칙, 사회의 공공선 원칙, 기술의 합목적성 원칙입니다. '기술의 효율성'은 해당하지 않습니다. (예상문제)" },
+  { type: "mc", mock: true, q: "사람 중심 인공지능 윤리기준의 10대 핵심요건에 해당하지 않는 것은?",
+    choices: ["프라이버시 보호", "데이터 관리", "투명성", "가격 경쟁력"], answerText: "가격 경쟁력",
+    explain: "10대 핵심요건은 인권보장·프라이버시보호·다양성존중·침해금지·공공성·연대성·데이터관리·책임성·안전성·투명성입니다. '가격 경쟁력'은 윤리기준과 무관합니다. (예상문제)" },
+  { type: "mc", mock: true, q: "AI 편향(Bias)을 완화하기 위한 방법으로 가장 적절한 것은?",
+    choices: ["다양하고 균형 잡힌 데이터로 학습시킨다", "한 가지 출처의 데이터만 대량으로 모은다", "편향 검토 없이 빠르게 서비스를 출시한다", "소수 집단의 데이터는 제외하고 학습한다"], answerText: "다양하고 균형 잡힌 데이터로 학습시킨다",
+    explain: "편향은 주로 데이터의 불균형에서 비롯되므로, 다양하고 균형 잡힌 데이터로 학습시키고 결과를 지속적으로 점검하는 것이 완화 방법입니다. (예상문제)" },
+  { type: "ox", mock: true, q: "AI 리터러시(AI Literacy)란 AI를 이해하고 비판적으로 활용할 수 있는 능력을 의미한다.", answer: true,
+    explain: "AI 리터러시는 AI의 원리와 한계를 이해하고, 결과를 맹신하지 않고 비판적으로 검토·활용할 수 있는 능력을 뜻합니다. (예상문제)" },
+  { type: "mc", mock: true, q: "빅데이터의 3V에 해당하지 않는 것은?",
+    choices: ["Volume(양)", "Velocity(속도)", "Variety(다양성)", "Vision(시야)"], answerText: "Vision(시야)",
+    explain: "빅데이터 3V는 Volume(양)·Velocity(속도)·Variety(다양성)입니다. 'Vision'은 해당하지 않습니다. (예상문제)" },
+  { type: "mc", mock: true, q: "빅데이터 3V에서 5V로 확장할 때 추가되는 두 가지 요소로 옳은 것은?",
+    choices: ["정확성(Veracity), 가치(Value)", "속도(Velocity), 다양성(Variety)", "용량(Volume), 시각화(Visualization)", "가상성(Virtuality), 검증(Verification)"], answerText: "정확성(Veracity), 가치(Value)",
+    explain: "5V는 기존 3V(Volume·Velocity·Variety)에 정확성(Veracity)과 가치(Value)를 더한 개념입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "이미지 인식에 특화된 신경망 구조는?",
+    choices: ["CNN(합성곱 신경망)", "RNN(순환 신경망)", "GAN(생성적 적대 신경망)", "트랜스포머(Transformer)"], answerText: "CNN(합성곱 신경망)",
+    explain: "CNN(Convolutional Neural Network)은 이미지의 공간적 특징을 추출하는 데 특화된 신경망으로, 이미지 인식·분류에 널리 쓰입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "순차적·시계열 데이터(문장, 음성 등) 처리에 특화된 신경망 구조는?",
+    choices: ["RNN(순환 신경망)", "CNN(합성곱 신경망)", "오토인코더(Autoencoder)", "MCTS"], answerText: "RNN(순환 신경망)",
+    explain: "RNN(Recurrent Neural Network)은 이전 시점의 정보를 기억해 다음 시점의 처리에 반영하는 구조로, 순차적 데이터 처리에 적합합니다. (예상문제)" },
+  { type: "mc", mock: true, q: "0보다 작은 입력은 0으로, 0보다 큰 입력은 그대로 출력하는, 딥러닝에서 가장 흔히 쓰이는 활성화 함수는?",
+    choices: ["ReLU", "Tanh", "Sigmoid", "Softmax"], answerText: "ReLU",
+    explain: "ReLU(Rectified Linear Unit)는 음수는 0으로, 양수는 그대로 출력하는 함수로, 계산이 간단해 딥러닝에서 가장 널리 사용됩니다. (예상문제)" },
+  { type: "mc", mock: true, q: "데이터 값의 범위를 0~1 등 일정한 기준으로 맞추는 데이터 전처리 기법은?",
+    choices: ["정규화(Normalization)", "라벨링(Labeling)", "증강(Augmentation)", "시각화(Visualization)"], answerText: "정규화(Normalization)",
+    explain: "정규화는 서로 다른 범위를 가진 데이터 값들을 일정한 기준으로 맞춰, 모델이 특정 값에 치우치지 않고 고르게 학습하도록 돕는 전처리 기법입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "이미지를 회전·반전·자르기 등으로 변형해 학습 데이터의 양을 인위적으로 늘리는 기법은?",
+    choices: ["데이터 증강(Data Augmentation)", "데이터 라벨링(Data Labeling)", "데이터 정규화(Normalization)", "데이터 마이닝(Data Mining)"], answerText: "데이터 증강(Data Augmentation)",
+    explain: "데이터 증강은 원본 데이터를 회전·반전·자르기·색상 변경 등으로 변형해 데이터 양을 늘리고 모델의 일반화 성능을 높이는 기법입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "모델 학습 도중 성능을 확인하고 하이퍼파라미터를 튜닝하기 위해 사용하는 데이터셋은?",
+    choices: ["검증 데이터셋(Validation Set)", "학습 데이터셋(Training Set)", "테스트 데이터셋(Test Set)", "원본 데이터셋(Raw Set)"], answerText: "검증 데이터셋(Validation Set)",
+    explain: "학습 데이터셋으로 모델을 학습시키고, 검증 데이터셋으로 학습 중간에 성능을 확인·튜닝하며, 테스트 데이터셋으로 최종 성능을 평가합니다. (예상문제)" },
+  { type: "mc", mock: true, q: "데이터셋에서 각 행(관측치)이 가진 개별 속성이나 변수를 무엇이라 하는가?",
+    choices: ["특성(Feature)", "레이블(Label)", "인덱스(Index)", "시드(Seed)"], answerText: "특성(Feature)",
+    explain: "특성(Feature)은 데이터의 각 열(예: 나이, 가격, 색상)에 해당하는 개별 속성을 의미하며, 모델은 이 특성들을 바탕으로 예측을 수행합니다. (예상문제)" },
+  { type: "mc", mock: true, q: "엑셀 표처럼 행과 열로 규칙적으로 구조화되어 있는 데이터를 무엇이라 하는가?",
+    choices: ["정형 데이터(Structured Data)", "비정형 데이터(Unstructured Data)", "반정형 데이터(Semi-structured Data)", "가상 데이터(Virtual Data)"], answerText: "정형 데이터(Structured Data)",
+    explain: "행과 열로 구조화되어 있는 데이터는 정형 데이터입니다. 이미지·텍스트·음성처럼 정해진 규칙 없이 저장된 데이터는 비정형 데이터라 합니다. (예상문제)" },
+  { type: "mc", mock: true, q: "다음 중 비정형 데이터로 가장 적절한 것은?",
+    choices: ["이미지 파일", "엑셀 표", "데이터베이스 테이블", "설문 응답표"], answerText: "이미지 파일",
+    explain: "이미지·동영상·음성·자유 텍스트처럼 고정된 행·열 구조가 없는 데이터를 비정형 데이터라 합니다. 나머지는 모두 행과 열로 정리된 정형 데이터입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "전체 학습 데이터셋을 한 번 모두 모델 학습에 사용하는 단위를 무엇이라 하는가?",
+    choices: ["에포크(Epoch)", "토큰(Token)", "시드(Seed)", "레이어(Layer)"], answerText: "에포크(Epoch)",
+    explain: "에포크(Epoch)는 전체 학습 데이터셋을 한 번 모두 학습에 사용한 횟수를 세는 단위입니다. 보통 여러 에포크를 반복해 모델을 학습시킵니다. (예상문제)" },
+  { type: "mc", mock: true, q: "모델이 학습을 통해 스스로 조정하는 값이 아니라, 학습을 시작하기 전에 사람이 미리 설정해야 하는 값을 무엇이라 하는가?",
+    choices: ["하이퍼파라미터(Hyperparameter)", "가중치(Weight)", "편향(Bias)", "출력값(Output)"], answerText: "하이퍼파라미터(Hyperparameter)",
+    explain: "하이퍼파라미터는 Temperature, 에포크 수, 배치 크기처럼 학습 전에 사람이 직접 설정하는 값이며, 가중치처럼 학습 과정에서 모델이 스스로 조정하는 값과는 다릅니다. (예상문제)" },
+  { type: "mc", mock: true, q: "딥러닝의 성능을 좌우하는 3대 요소로 가장 적절한 것은?",
+    choices: ["데이터, 알고리즘(모델), 컴퓨팅 파워", "디자인, 마케팅, 영업", "서버, 네트워크, 저장장치", "기획, 개발, 테스트"], answerText: "데이터, 알고리즘(모델), 컴퓨팅 파워",
+    explain: "딥러닝은 충분한 양질의 데이터, 적절한 알고리즘(모델 구조), 그리고 이를 학습시킬 컴퓨팅 파워(주로 GPU)가 함께 뒷받침되어야 좋은 성능을 냅니다. (예상문제)" },
+  { type: "mc", mock: true, q: "스팸 메일을 '스팸/정상'이라는 정답이 붙은 데이터로 분류하도록 학습시키는 방식은 어떤 학습에 해당하는가?",
+    choices: ["지도학습(Supervised Learning)", "비지도학습(Unsupervised Learning)", "강화학습(Reinforcement Learning)", "전이학습(Transfer Learning)"], answerText: "지도학습(Supervised Learning)",
+    explain: "정답(레이블)이 있는 데이터로 학습시켜 분류·예측하는 방식은 지도학습입니다. 스팸 여부처럼 정답이 이미 표시된 데이터를 사용하는 것이 대표적인 예입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "비슷한 구매 패턴을 가진 고객끼리 정답 없이 자동으로 그룹을 짓는 분석 기법은 어떤 학습 방식에 속하는가?",
+    choices: ["비지도학습(군집화)", "지도학습(분류)", "강화학습(보상 기반)", "준지도학습"], answerText: "비지도학습(군집화)",
+    explain: "정답(레이블) 없이 데이터의 유사성을 기준으로 그룹을 자동으로 나누는 것은 비지도학습의 군집화(Clustering)에 해당합니다. (예상문제)" },
+  { type: "mc", mock: true, q: "대규모 데이터로 사전학습되어, 이후 다양한 후속 작업(파인튜닝)의 토대가 되는 범용 인공지능 모델을 무엇이라 하는가?",
+    choices: ["파운데이션 모델(Foundation Model)", "엣지 모델(Edge Model)", "베이스라인(Baseline)", "서브셋 모델(Subset Model)"], answerText: "파운데이션 모델(Foundation Model)",
+    explain: "파운데이션 모델은 방대한 데이터로 미리 학습되어 다양한 하위 작업에 파인튜닝되어 활용될 수 있는 범용 모델을 뜻하며, GPT 계열이 대표적입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "적은 자원으로 스테이블 디퓨전 모델에 특정 화풍이나 캐릭터를 학습시킬 때 사용하는 경량 미세조정 기법은?",
+    choices: ["LoRA", "GAN", "VAE", "MCTS"], answerText: "LoRA",
+    explain: "LoRA(Low-Rank Adaptation)는 모델 전체를 다시 학습시키지 않고 적은 파라미터만 추가 학습해, 적은 자원으로도 특정 화풍·캐릭터를 반영할 수 있게 하는 경량 미세조정 기법입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "원본 이미지의 인물 포즈나 윤곽선을 그대로 유지한 채 다른 스타일로 새 이미지를 생성할 수 있게 해주는 스테이블 디퓨전 확장 기능은?",
+    choices: ["ControlNet", "네거티브 프롬프트", "업스케일링", "Seed"], answerText: "ControlNet",
+    explain: "ControlNet은 오픈포즈(뼈대) 같은 참조 이미지를 입력해, 인물의 포즈나 구도는 유지하면서 스타일만 바꿔 이미지를 생성할 수 있게 해주는 확장 기능입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "미드저니 디스코드에서 이미지를 생성할 때 입력하는 기본 명령어는?",
+    choices: ["/imagine", "/generate", "/create", "/render"], answerText: "/imagine",
+    explain: "미드저니는 디스코드 채팅창에 '/imagine' 명령어 뒤에 프롬프트를 입력해 이미지를 생성합니다. (예상문제)" },
+  { type: "mc", mock: true, q: "미드저니에서 애니메이션·일러스트 화풍에 특화된 모델을 사용하고 싶을 때 지정하는 옵션은?",
+    choices: ["--niji", "--chaos", "--stylize", "--tile"], answerText: "--niji",
+    explain: "--niji는 미드저니와 스피어(Spellbrush)가 함께 만든, 애니메이션·일러스트 화풍에 특화된 별도 모델을 사용하도록 지정하는 옵션입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "챗GPT Plus에서 별도의 프롬프트 엔지니어링 없이도, 사용자의 요청을 챗GPT가 자동으로 다듬어 이미지 생성 모델에 전달해주는 기능은?",
+    choices: ["DALL·E 3 연동 이미지 생성", "코파일럿 디자이너", "스테이블 디퓨전 Web UI", "미드저니 릴렉스 모드"], answerText: "DALL·E 3 연동 이미지 생성",
+    explain: "챗GPT Plus에 연동된 DALL·E 3는 사용자의 자연어 요청을 챗GPT가 스스로 상세한 프롬프트로 다듬어 전달하기 때문에, 복잡한 프롬프트 작성 없이도 원하는 이미지를 얻기 쉽습니다. (예상문제)" },
+  { type: "mc", mock: true, q: "인터넷 연결 없이 스마트폰 등 기기 자체에서 AI 연산을 직접 수행하는 방식을 무엇이라 하는가?",
+    choices: ["온디바이스 AI(On-device AI)", "클라우드 AI(Cloud AI)", "엣지 서버(Edge Server)", "웹 AI(Web AI)"], answerText: "온디바이스 AI(On-device AI)",
+    explain: "온디바이스 AI는 서버로 데이터를 보내지 않고 기기 자체에서 연산을 수행하는 방식으로, 응답 속도와 개인정보 보호 측면에서 강점이 있습니다. (예상문제)" },
+  { type: "mc", mock: true, q: "외부 프로그램이 정당한 권한으로 AI API를 호출할 수 있도록 발급받는 인증 정보를 무엇이라 하는가?",
+    choices: ["API 키(API Key)", "IP 주소", "시드(Seed)", "토큰 윈도우"], answerText: "API 키(API Key)",
+    explain: "API 키는 서비스 제공자가 발급하는 고유한 인증 코드로, 이를 요청에 포함해야 정당한 권한으로 API를 호출할 수 있습니다. 외부에 노출되지 않도록 관리해야 합니다. (예상문제)" },
+  { type: "mc", mock: true, q: "AI 챗봇이 이전 대화에서 언급한 사용자 정보를 자동으로 저장해두었다가, 이후의 다른 대화에서도 알아서 반영해주는 기능을 가장 잘 설명한 것은?",
+    choices: ["대화 내용을 자동으로 기억해 이후 대화에도 반영하는 메모리 기능이다", "사용자가 매번 직접 설정을 다시 입력해야 하는 기능이다", "한 번의 대화창 안에서만 유지되고 새 대화에서는 사라진다", "AI 모델 자체를 재학습시키는 기능이다"], answerText: "대화 내용을 자동으로 기억해 이후 대화에도 반영하는 메모리 기능이다",
+    explain: "메모리 기능은 대화 중 언급된 정보를 AI가 자동으로 저장해 이후 다른 대화에도 반영하는 기능으로, 사용자가 직접 지침을 등록해두는 맞춤형 지침(Custom Instructions)과는 저장 방식이 다릅니다. (예상문제)" },
+  { type: "mc", mock: true, q: "AI의 답변이 한 번에 전부 나오지 않고, 실시간으로 한 글자씩 순차적으로 출력되는 방식을 무엇이라 하는가?",
+    choices: ["스트리밍(Streaming)", "배치 처리(Batch Processing)", "캐싱(Caching)", "버퍼링(Buffering)"], answerText: "스트리밍(Streaming)",
+    explain: "스트리밍 방식은 답변이 완성되기를 기다리지 않고, 생성되는 대로 순차적으로 화면에 출력해주는 방식으로 체감 대기시간을 줄여줍니다. (예상문제)" },
+  { type: "ox", mock: true, q: "딥러닝은 데이터, 알고리즘, 컴퓨팅 파워(특히 GPU)가 모두 충분히 뒷받침되어야 좋은 성능을 낼 수 있다.", answer: true,
+    explain: "딥러닝은 대량의 데이터와 이를 처리할 알고리즘, 그리고 이를 감당할 컴퓨팅 파워가 함께 갖춰져야 좋은 성능을 발휘할 수 있습니다. (예상문제)" },
+  { type: "ox", mock: true, q: "검증 데이터셋(Validation Set)과 테스트 데이터셋(Test Set)은 완전히 같은 역할을 하므로 구분할 필요가 없다.", answer: false,
+    explain: "검증 데이터셋은 학습 중간에 성능을 확인하고 튜닝하는 데 쓰이고, 테스트 데이터셋은 학습이 모두 끝난 뒤 최종 성능을 평가하는 데 쓰입니다. 역할이 서로 다릅니다. (예상문제)" },
+  { type: "ox", mock: true, q: "온디바이스 AI는 클라우드 서버로 데이터를 전송하지 않아도 되므로 개인정보 보호와 응답 속도 면에서 강점이 있다.", answer: true,
+    explain: "온디바이스 AI는 기기 내부에서 연산을 처리해 서버로 데이터를 보낼 필요가 없어, 개인정보 유출 위험이 낮고 응답 속도도 빠른 편입니다. (예상문제)" },
+  { type: "ox", mock: true, q: "파운데이션 모델은 처음부터 하나의 특정 작업만 수행하도록 설계되어 다른 작업에는 활용할 수 없다.", answer: false,
+    explain: "파운데이션 모델은 범용적으로 사전학습된 모델로, 파인튜닝을 통해 번역·요약·분류 등 다양한 후속 작업에 두루 활용할 수 있습니다. (예상문제)" },
+  { type: "mc", mock: true, q: "딥러닝에서 활성화 함수(Activation Function)를 사용하는 주된 목적은?",
+    choices: ["모델에 비선형성을 부여해 복잡한 패턴을 학습할 수 있게 하기 위해", "연산 속도를 무조건 느리게 만들기 위해", "데이터의 크기를 물리적으로 줄이기 위해", "모델의 파라미터 수를 0으로 만들기 위해"], answerText: "모델에 비선형성을 부여해 복잡한 패턴을 학습할 수 있게 하기 위해",
+    explain: "활성화 함수가 없으면 신경망은 단순한 선형 계산만 반복하게 되어 복잡한 패턴을 학습할 수 없습니다. 활성화 함수는 비선형성을 더해 복잡한 문제를 학습할 수 있게 합니다. (예상문제)" },
+  { type: "mc", mock: true, q: "사람 중심 인공지능 윤리기준에서 '사회의 공공선 원칙'이 강조하는 것으로 가장 적절한 것은?",
+    choices: ["AI가 사회 전체의 공공 이익에 기여하도록 활용되어야 한다", "AI 기업의 이윤을 최우선으로 추구해야 한다", "AI 기술은 소수의 전문가만 이해하면 충분하다", "AI 개발 속도를 최대한 빠르게 해야 한다"], answerText: "AI가 사회 전체의 공공 이익에 기여하도록 활용되어야 한다",
+    explain: "사회의 공공선 원칙은 AI가 개인이나 특정 집단의 이익을 넘어 사회 전체의 공공 이익과 후생에 기여하도록 개발·활용되어야 한다는 원칙입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "스테이블 디퓨전 커뮤니티에서, 학습이 완료된 모델의 가중치 파일을 배포·공유할 때 흔히 부르는 이름은?",
+    choices: ["체크포인트(Checkpoint)", "시드(Seed)", "네거티브 프롬프트", "샘플러(Sampler)"], answerText: "체크포인트(Checkpoint)",
+    explain: "체크포인트는 학습된 모델의 가중치 값을 저장한 파일로, 스테이블 디퓨전 커뮤니티에서는 서로 다른 화풍의 체크포인트 파일을 내려받아 바꿔가며 사용합니다. (예상문제)" },
+  { type: "mc", mock: true, q: "사람 중심 인공지능 윤리기준에서 '기술의 합목적성 원칙'이 의미하는 바로 가장 적절한 것은?",
+    choices: ["AI 기술의 개발과 활용이 인류의 삶에 도움이 되는 목적에 부합해야 한다", "AI는 기술적으로 가장 진보된 방식만 사용해야 한다", "AI의 목적은 오직 상업적 이윤 추구에 있다", "AI 기술 개발에는 특별한 목적이 필요하지 않다"], answerText: "AI 기술의 개발과 활용이 인류의 삶에 도움이 되는 목적에 부합해야 한다",
+    explain: "기술의 합목적성 원칙은 AI 기술의 개발과 활용 목적이 인류의 삶에 실질적인 도움이 되는 방향에 부합해야 한다는 원칙입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "온디바이스 AI와 대비되는 개념으로, 인터넷을 통해 원격 서버의 연산 자원을 활용해 AI 서비스를 제공하는 방식을 무엇이라 하는가?",
+    choices: ["클라우드 AI(Cloud AI)", "엣지 AI(Edge AI)", "로컬 AI(Local AI)", "오프라인 AI(Offline AI)"], answerText: "클라우드 AI(Cloud AI)",
+    explain: "클라우드 AI는 기기 자체가 아닌 인터넷 너머의 원격 서버(클라우드)에서 AI 연산을 처리하고 결과만 기기로 전달받는 방식입니다. 챗GPT, 클로드 등 대부분의 웹 기반 생성 AI 서비스가 이 방식입니다. (예상문제)" },
 ];
 
 /* ---------- 유틸 ---------- */
@@ -772,63 +889,30 @@ function StageWorld({ stageIndex, resultsRef, version }) {
     body.scale.y = 0.92;
     player.add(body);
     const eyeDark = new THREE.MeshBasicMaterial({ color: 0x22243a });
-
-    /* 얼굴 부품은 '평면'이 아니라 몸통을 감싸는 '구면'에 붙인다.
-       평면(z 고정)에 두면 볼록한 몸통 가운데가 앞으로 튀어나와 눈 꼭짓점이 파묻혀 잘려 보인다.
-       FACE_R(0.872)은 몸통 반지름(0.85)보다 살짝 크므로 어떤 부품도 몸에 묻히지 않는다. */
-    const FACE_R = 0.872;
-    const _fv = new THREE.Vector3();
-    const wrapFace = (geo) => {           // 평면 XY 도안을 구 표면으로 감싸기 (z = 표면에서 띄우는 두께)
-      const p = geo.attributes.position;
-      for (let i = 0; i < p.count; i++) {
-        _fv.set(p.getX(i), p.getY(i), FACE_R).normalize().multiplyScalar(FACE_R + p.getZ(i));
-        p.setXYZ(i, _fv.x, _fv.y, _fv.z);
-      }
-      p.needsUpdate = true;
-      geo.computeVertexNormals();
-      return geo;
-    };
-    const faceDot = (x, y, r) => {        // 선 끝·꼭짓점을 둥글게 마감하는 원형 캡
-      player.add(new THREE.Mesh(wrapFace(new THREE.CircleGeometry(r, 14).translate(x, y, 0.012)), eyeDark));
-    };
-
-    // '><' 찡긋 윙크 눈 — 막대 2개가 꼭짓점에서 정확히 만나고 양 끝은 둥글게 마감
-    const BAR_LEN = 0.345, BAR_TH = 0.078, SPREAD = 0.49, EYE_X = 0.29, EYE_Y = 0.20;
-    [[-EYE_X, Math.PI], [EYE_X, 0]].forEach(([x, baseAngle]) => { // 꼭짓점이 얼굴 중앙을 향하는 기준각
-      faceDot(x, EYE_Y, BAR_TH / 2);      // 두 막대가 만나는 꼭짓점을 둥글게 이어 준다
-      [baseAngle - SPREAD, baseAngle + SPREAD].forEach(angle => {
-        const g = new THREE.BoxGeometry(BAR_LEN, BAR_TH, 0.024)
-          .translate(BAR_LEN / 2, 0, 0.012)  // 회전 축(꼭짓점)을 막대 끝으로 이동
-          .rotateZ(angle)
-          .translate(x, EYE_Y, 0);
-        player.add(new THREE.Mesh(wrapFace(g), eyeDark));
-        faceDot(x + Math.cos(angle) * BAR_LEN, EYE_Y + Math.sin(angle) * BAR_LEN, BAR_TH / 2); // 바깥쪽 끝 둥글게
+    // '><' 찡긋 윙크 눈: 막대 2개가 꺾여 만나는 지점(뾰족한 끝)이 얼굴 중앙 쪽을 향하도록 배치
+    const winkBarGeo = new THREE.BoxGeometry(0.17, 0.045, 0.02);
+    winkBarGeo.translate(0.085, 0, 0); // 회전 축(꼭짓점)을 막대 왼쪽 끝으로 이동
+    [[-0.3, 1], [0.3, -1]].forEach(([x, mirror]) => { // mirror: 왼쪽 눈은 '>' 모양, 오른쪽 눈은 '<' 모양
+      const baseAngle = mirror === 1 ? Math.PI : 0; // 꼭짓점이 얼굴 중앙(코 쪽)을 향하는 기준각
+      const spread = 0.55;
+      [baseAngle - spread, baseAngle + spread].forEach(angle => {
+        const bar = new THREE.Mesh(winkBarGeo, eyeDark);
+        bar.position.set(x, 0.18, 0.72);
+        bar.rotation.z = angle;
+        player.add(bar);
       });
     });
-
-    /* 볼터치: 원판을 구 표면의 법선 방향으로 세우고 표면보다 바깥(0.885)에 띄운다.
-       예전처럼 카메라 쪽만 보게 두면 안쪽 절반이 몸통에 파고들어 찌그러져 보였다. */
     const blushMat = new THREE.MeshBasicMaterial({ color: 0xff5f95, transparent: true, opacity: 0.85 });
-    [-1, 1].forEach(s => {
-      const dir = new THREE.Vector3(s * 0.56, -0.06, 0.66).normalize();
-      const b = new THREE.Mesh(new THREE.CircleGeometry(0.115, 24), blushMat);
-      b.position.copy(dir).multiplyScalar(0.885);
-      // 법선에서 정면 쪽으로 살짝만 눕혀 화면에서 찌그러짐 없이 동그랗게 보이도록
-      b.lookAt(b.position.clone().add(dir.clone().add(new THREE.Vector3(0, 0, 0.6)).normalize()));
-      player.add(b);
+    [-0.55, 0.55].forEach(x => {
+      const b = new THREE.Mesh(new THREE.CircleGeometry(0.11, 16), blushMat);
+      b.position.set(x, -0.06, 0.66); b.lookAt(new THREE.Vector3(x * 4, -0.06, 4)); player.add(b);
     });
-
-    // 입: 옆으로 넓고 완만한 두툼한 스마일 (큰 반지름 + 좁은 호 = 넓고 얕은 곡선), 양끝은 둥글게
-    const MOUTH_R = 0.225, MOUTH_TUBE = 0.048, MOUTH_ARC = 1.45, MOUTH_Y = 0.078;
-    const MOUTH_A0 = -Math.PI / 2 - MOUTH_ARC / 2; // 호의 중앙이 정확히 아래(6시)를 향하게
-    const mouthGeo = new THREE.TorusGeometry(MOUTH_R, MOUTH_TUBE, 8, 32, MOUTH_ARC)
-      .rotateZ(MOUTH_A0)
-      .scale(1, 1, 0.25)                 // 튜브를 얼굴에 납작하게 눌러 붙인다
-      .translate(0, MOUTH_Y, 0.012);
-    player.add(new THREE.Mesh(wrapFace(mouthGeo), eyeDark));
-    [MOUTH_A0, MOUTH_A0 + MOUTH_ARC].forEach(a => {
-      faceDot(Math.cos(a) * MOUTH_R, MOUTH_Y + Math.sin(a) * MOUTH_R, MOUTH_TUBE); // 입꼬리 둥글게 마감
-    });
+    // 입: 완만한 곡선의 스마일 (참고 이미지의 앙증맞은 미소 형태)
+    const mouthGeo = new THREE.TorusGeometry(0.09, 0.02, 8, 20, Math.PI);
+    const mouth = new THREE.Mesh(mouthGeo, eyeDark);
+    mouth.position.set(0, -0.02, 0.8);
+    mouth.rotation.z = Math.PI; // 반원의 볼록한 면이 아래로 오도록 뒤집어 '스마일' 곡선으로 표현
+    player.add(mouth);
     const footMat = new THREE.MeshStandardMaterial({ color: 0xe8486e, roughness: 0.5 });
     const feet = [-0.34, 0.34].map(x => {
       const f = new THREE.Mesh(new THREE.SphereGeometry(0.24, 12, 12), footMat);
@@ -1168,23 +1252,34 @@ function AiPotQuest() {
 
           {/* 보기 */}
           {q.type === "ox" ? (
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-              {[true, false].map(v => {
-                const chosen = sel === v;
-                const isAns = answered && q.answer === v;
-                const isWrongPick = answered && chosen && !isAns;
-                return (
-                  <button key={String(v)} disabled={answered} onClick={() => answer(v)}
-                    style={{ ...S.btn, textAlign: "center", fontSize: 34, padding: "20px 0", fontFamily: "'Jua','Spoqa Han Sans',sans-serif", fontWeight: 700,
-                      color: v ? "#7DF0FF" : "#FFB1BD",
-                      borderColor: isAns ? C.gold : isWrongPick ? C.red : C.line,
-                      background: isAns ? "rgba(255,207,92,0.18)" : isWrongPick ? "rgba(255,116,136,0.16)" : S.btn.background,
-                      boxShadow: isAns ? `0 0 18px rgba(255,207,92,.35)` : "none" }}>
-                    {v ? "O" : "X"}
-                    <div style={{ fontSize: 13, color: C.dim, fontFamily: "'IBM Plex Sans KR','Spoqa Han Sans',sans-serif", marginTop: 4 }}>{v ? "맞다" : "아니다"}</div>
-                  </button>
-                );
-              })}
+            <div>
+              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12, marginBottom: 12 }}>
+                {[true, false].map(v => {
+                  const chosen = sel === v;
+                  const isAns = answered && q.answer === v;
+                  const isWrongPick = answered && chosen && !isAns;
+                  return (
+                    <button key={String(v)} disabled={answered} onClick={() => setSelected(v)}
+                      style={{ ...S.btn, textAlign: "center", fontSize: 34, padding: "20px 0", fontFamily: "'Jua','Spoqa Han Sans',sans-serif", fontWeight: 700,
+                        color: v ? "#7DF0FF" : "#FFB1BD",
+                        borderColor: isAns ? C.gold : isWrongPick ? C.red : chosen ? C.cyan : C.line,
+                        background: isAns ? "rgba(255,207,92,0.18)" : isWrongPick ? "rgba(255,116,136,0.16)" : chosen ? "rgba(53,224,255,0.12)" : S.btn.background,
+                        boxShadow: isAns ? `0 0 18px rgba(255,207,92,.35)` : chosen && !answered ? `0 0 12px rgba(53,224,255,.25)` : "none" }}>
+                      {v ? "O" : "X"}
+                      <div style={{ fontSize: 13, color: C.dim, fontFamily: "'IBM Plex Sans KR','Spoqa Han Sans',sans-serif", marginTop: 4 }}>{v ? "맞다" : "아니다"}</div>
+                    </button>
+                  );
+                })}
+              </div>
+              {!answered && (
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <div style={{ flex: 1, fontSize: 13, color: selected !== null ? C.cyan : C.dim }}>
+                    {selected !== null ? `선택한 답안: ${selected ? "O (맞다)" : "X (아니다)"}` : "아직 선택하지 않았습니다"}
+                  </div>
+                  <button style={{ ...S.primary, opacity: selected !== null ? 1 : 0.4, cursor: selected !== null ? "pointer" : "not-allowed" }}
+                    disabled={selected === null} onClick={() => answer(selected)}>답안 제출 ✔</button>
+                </div>
+              )}
             </div>
           ) : q.type === "fill" ? (
             <div>
@@ -1239,23 +1334,34 @@ function AiPotQuest() {
               </div>
             </div>
           ) : (
-            <div style={{ display: "grid", gap: 10 }}>
-              {q.choices.map((c, i) => {
-                const chosen = sel === i;
-                const isAns = answered && i === q.correctIndex;
-                const isWrongPick = answered && chosen && !isAns;
-                return (
-                  <button key={i} disabled={answered} onClick={() => answer(i)}
-                    style={{ ...S.btn,
-                      borderColor: isAns ? C.gold : isWrongPick ? C.red : C.line,
-                      background: isAns ? "rgba(255,207,92,0.18)" : isWrongPick ? "rgba(255,116,136,0.16)" : S.btn.background,
-                      boxShadow: isAns ? `0 0 18px rgba(255,207,92,.3)` : "none" }}>
-                    <b style={{ color: isAns ? C.gold : C.cyan, marginRight: 8 }}>{i + 1}</b> {c}
-                    {isAns && <span style={{ float: "right", color: C.gold }}>✔ 정답</span>}
-                    {isWrongPick && <span style={{ float: "right", color: C.red }}>✘ 내 선택</span>}
-                  </button>
-                );
-              })}
+            <div>
+              <div style={{ display: "grid", gap: 10, marginBottom: 12 }}>
+                {q.choices.map((c, i) => {
+                  const chosen = sel === i;
+                  const isAns = answered && i === q.correctIndex;
+                  const isWrongPick = answered && chosen && !isAns;
+                  return (
+                    <button key={i} disabled={answered} onClick={() => setSelected(i)}
+                      style={{ ...S.btn,
+                        borderColor: isAns ? C.gold : isWrongPick ? C.red : chosen ? C.cyan : C.line,
+                        background: isAns ? "rgba(255,207,92,0.18)" : isWrongPick ? "rgba(255,116,136,0.16)" : chosen ? "rgba(53,224,255,0.12)" : S.btn.background,
+                        boxShadow: isAns ? `0 0 18px rgba(255,207,92,.3)` : chosen && !answered ? `0 0 12px rgba(53,224,255,.25)` : "none" }}>
+                      <b style={{ color: isAns ? C.gold : isWrongPick ? C.red : chosen ? C.cyan : C.dim, marginRight: 8 }}>{i + 1}</b> {c}
+                      {isAns && <span style={{ float: "right", color: C.gold }}>✔ 정답</span>}
+                      {isWrongPick && <span style={{ float: "right", color: C.red }}>✘ 내 선택</span>}
+                    </button>
+                  );
+                })}
+              </div>
+              {!answered && (
+                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                  <div style={{ flex: 1, fontSize: 13, color: selected !== null ? C.cyan : C.dim }}>
+                    {selected !== null ? `선택한 답안: ${selected + 1}번` : "아직 선택하지 않았습니다"}
+                  </div>
+                  <button style={{ ...S.primary, opacity: selected !== null ? 1 : 0.4, cursor: selected !== null ? "pointer" : "not-allowed" }}
+                    disabled={selected === null} onClick={() => answer(selected)}>답안 제출 ✔</button>
+                </div>
+              )}
             </div>
           )}
 
