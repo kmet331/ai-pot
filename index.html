@@ -512,6 +512,188 @@ const QUESTION_BANK = [
   { type: "mc", mock: true, q: "온디바이스 AI와 대비되는 개념으로, 인터넷을 통해 원격 서버의 연산 자원을 활용해 AI 서비스를 제공하는 방식을 무엇이라 하는가?",
     choices: ["클라우드 AI(Cloud AI)", "엣지 AI(Edge AI)", "로컬 AI(Local AI)", "오프라인 AI(Offline AI)"], answerText: "클라우드 AI(Cloud AI)",
     explain: "클라우드 AI는 기기 자체가 아닌 인터넷 너머의 원격 서버(클라우드)에서 AI 연산을 처리하고 결과만 기기로 전달받는 방식입니다. 챗GPT, 클로드 등 대부분의 웹 기반 생성 AI 서비스가 이 방식입니다. (예상문제)" },
+
+  /* ===== 자작 예상문제 3차 추가분 (60문항, 이미지 8개 포함, mock: true) ===== */
+  { type: "mc", mock: true, q: "다음과 같이 텍스트에서 자주 나온 단어일수록 크게 표시해 한눈에 핵심 단어를 파악하게 해주는 시각화 도구는?",
+    svg: `<svg viewBox="0 0 320 150" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:320px;display:block;margin:0 auto"><rect width="320" height="150" rx="10" fill="#0F1631"/><text x="60" y="70" font-size="30" font-weight="700" fill="#35E0FF" font-family="sans-serif">인공지능</text><text x="170" y="45" font-size="18" fill="#FFCF5C" font-family="sans-serif">데이터</text><text x="40" y="105" font-size="15" fill="#9AA8D8" font-family="sans-serif">모델</text><text x="150" y="100" font-size="22" fill="#E9EEFF" font-family="sans-serif">학습</text><text x="220" y="70" font-size="12" fill="#9AA8D8" font-family="sans-serif">프롬프트</text><text x="230" y="115" font-size="14" fill="#FFCF5C" font-family="sans-serif">알고리즘</text><text x="20" y="45" font-size="11" fill="#9AA8D8" font-family="sans-serif">신경망</text><text x="120" y="130" font-size="10" fill="#9AA8D8" font-family="sans-serif">챗봇</text></svg>`,
+    choices: ["워드 클라우드(Word Cloud)", "히트맵(Heatmap)", "산점도(Scatter Plot)", "네트워크 그래프(Network Graph)"], answerText: "워드 클라우드(Word Cloud)",
+    explain: "워드 클라우드는 텍스트에 등장하는 단어의 빈도수에 비례해 글자 크기를 다르게 표시하는 시각화 기법입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "다음 막대그래프는 모델 A와 모델 B의 정확도를 비교한 것이다. 그래프를 보고 옳게 설명한 것은?",
+    svg: `<svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px;display:block;margin:0 auto"><rect width="300" height="170" rx="10" fill="#0F1631"/><line x1="45" y1="20" x2="45" y2="140" stroke="#9AA8D8" stroke-width="1.5"/><line x1="45" y1="140" x2="270" y2="140" stroke="#9AA8D8" stroke-width="1.5"/><rect x="90" y="80" width="55" height="60" fill="#9AA8D8"/><text x="100" y="72" font-size="13" fill="#E9EEFF" font-family="sans-serif">72%</text><text x="100" y="158" font-size="12" fill="#9AA8D8" font-family="sans-serif">모델 A</text><rect x="190" y="35" width="55" height="105" fill="#35E0FF"/><text x="200" y="27" font-size="13" fill="#E9EEFF" font-family="sans-serif">91%</text><text x="200" y="158" font-size="12" fill="#9AA8D8" font-family="sans-serif">모델 B</text><text x="90" y="12" font-size="12" fill="#9AA8D8" font-family="sans-serif">정확도 비교</text></svg>`,
+    choices: ["모델 B가 모델 A보다 정확도가 높다", "모델 A가 모델 B보다 정확도가 높다", "두 모델의 정확도는 동일하다", "그래프만으로는 정확도를 비교할 수 없다"], answerText: "모델 B가 모델 A보다 정확도가 높다",
+    explain: "그래프에서 모델 A는 72%, 모델 B는 91%로 표시되어 있으므로 모델 B의 정확도가 더 높습니다. (예상문제)" },
+  { type: "mc", mock: true, q: "다음 그래프는 학습이 진행됨에 따른 학습 손실과 검증 손실의 변화를 나타낸다. 검증 손실이 어느 순간부터 다시 증가하는 이 현상을 무엇이라 하는가?",
+    svg: `<svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px;display:block;margin:0 auto"><rect width="300" height="170" rx="10" fill="#0F1631"/><line x1="40" y1="15" x2="40" y2="140" stroke="#9AA8D8" stroke-width="1.5"/><line x1="40" y1="140" x2="280" y2="140" stroke="#9AA8D8" stroke-width="1.5"/><polyline points="40,120 90,95 140,75 190,60 240,48 275,40" fill="none" stroke="#35E0FF" stroke-width="3"/><polyline points="40,125 90,100 140,80 190,72 240,90 275,118" fill="none" stroke="#FF7488" stroke-width="3"/><circle cx="18" cy="30" r="5" fill="#35E0FF"/><text x="28" y="34" font-size="11" fill="#E9EEFF" font-family="sans-serif">학습 손실</text><circle cx="18" cy="48" r="5" fill="#FF7488"/><text x="28" y="52" font-size="11" fill="#E9EEFF" font-family="sans-serif">검증 손실</text><text x="150" y="158" font-size="11" fill="#9AA8D8" font-family="sans-serif">학습 진행(Epoch) →</text></svg>`,
+    choices: ["과적합(Overfitting)", "과소적합(Underfitting)", "정규화(Normalization)", "경사소실(Vanishing Gradient)"], answerText: "과적합(Overfitting)",
+    explain: "학습 손실은 계속 줄어드는데 검증 손실이 다시 늘어나는 것은, 모델이 학습 데이터에만 지나치게 맞춰져 새로운 데이터에 일반화하지 못하는 과적합의 대표적인 신호입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "다음 인공신경망 다이어그램에서 입력층과 출력층 사이에 있는 은닉층(Hidden Layer)은 몇 개인가?",
+    svg: `<svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px;display:block;margin:0 auto"><rect width="300" height="170" rx="10" fill="#0F1631"/><g stroke="#3A4A7A" stroke-width="1"><line x1="35" y1="45" x2="110" y2="30"/><line x1="35" y1="45" x2="110" y2="70"/><line x1="35" y1="45" x2="110" y2="110"/><line x1="35" y1="45" x2="110" y2="150"/><line x1="35" y1="90" x2="110" y2="30"/><line x1="35" y1="90" x2="110" y2="70"/><line x1="35" y1="90" x2="110" y2="110"/><line x1="35" y1="90" x2="110" y2="150"/><line x1="35" y1="135" x2="110" y2="30"/><line x1="35" y1="135" x2="110" y2="70"/><line x1="35" y1="135" x2="110" y2="110"/><line x1="35" y1="135" x2="110" y2="150"/><line x1="110" y1="30" x2="185" y2="50"/><line x1="110" y1="30" x2="185" y2="130"/><line x1="110" y1="70" x2="185" y2="50"/><line x1="110" y1="70" x2="185" y2="130"/><line x1="110" y1="110" x2="185" y2="50"/><line x1="110" y1="110" x2="185" y2="130"/><line x1="110" y1="150" x2="185" y2="50"/><line x1="110" y1="150" x2="185" y2="130"/><line x1="185" y1="50" x2="260" y2="60"/><line x1="185" y1="50" x2="260" y2="120"/><line x1="185" y1="130" x2="260" y2="60"/><line x1="185" y1="130" x2="260" y2="120"/></g><g fill="#9AA8D8"><circle cx="35" cy="45" r="9"/><circle cx="35" cy="90" r="9"/><circle cx="35" cy="135" r="9"/></g><g fill="#35E0FF"><circle cx="110" cy="30" r="9"/><circle cx="110" cy="70" r="9"/><circle cx="110" cy="110" r="9"/><circle cx="110" cy="150" r="9"/></g><g fill="#FFCF5C"><circle cx="185" cy="50" r="9"/><circle cx="185" cy="130" r="9"/></g><g fill="#FF7488"><circle cx="260" cy="60" r="9"/><circle cx="260" cy="120" r="9"/></g><text x="18" y="20" font-size="10" fill="#9AA8D8" font-family="sans-serif">입력층</text><text x="90" y="15" font-size="10" fill="#9AA8D8" font-family="sans-serif">?</text><text x="245" y="20" font-size="10" fill="#9AA8D8" font-family="sans-serif">출력층</text></svg>`,
+    choices: ["2개", "1개", "3개", "4개"], answerText: "2개",
+    explain: "왼쪽부터 입력층(회색, 3개 노드) → 은닉층1(청록, 4개) → 은닉층2(금색, 2개) → 출력층(빨강, 2개) 순서이므로 은닉층은 총 2개입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "다음 혼동행렬(Confusion Matrix)에서 전체 100건 중 정확도(Accuracy)를 계산하면?",
+    svg: `<svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px;display:block;margin:0 auto"><rect width="300" height="170" rx="10" fill="#0F1631"/><rect x="80" y="20" width="100" height="55" fill="rgba(53,224,255,0.25)" stroke="#3A4A7A"/><rect x="180" y="20" width="100" height="55" fill="rgba(255,116,136,0.18)" stroke="#3A4A7A"/><rect x="80" y="75" width="100" height="55" fill="rgba(255,116,136,0.18)" stroke="#3A4A7A"/><rect x="180" y="75" width="100" height="55" fill="rgba(53,224,255,0.25)" stroke="#3A4A7A"/><text x="122" y="53" font-size="20" fill="#E9EEFF" font-family="sans-serif">45</text><text x="222" y="53" font-size="20" fill="#E9EEFF" font-family="sans-serif">10</text><text x="122" y="108" font-size="20" fill="#E9EEFF" font-family="sans-serif">5</text><text x="222" y="108" font-size="20" fill="#E9EEFF" font-family="sans-serif">40</text><text x="85" y="12" font-size="10" fill="#9AA8D8" font-family="sans-serif">예측:양성</text><text x="185" y="12" font-size="10" fill="#9AA8D8" font-family="sans-serif">예측:음성</text><text x="10" y="52" font-size="10" fill="#9AA8D8" font-family="sans-serif">실제</text><text x="10" y="60" font-size="10" fill="#9AA8D8" font-family="sans-serif">양성</text><text x="10" y="107" font-size="10" fill="#9AA8D8" font-family="sans-serif">실제</text><text x="10" y="115" font-size="10" fill="#9AA8D8" font-family="sans-serif">음성</text><text x="80" y="150" font-size="11" fill="#9AA8D8" font-family="sans-serif">전체 100건 중 혼동행렬 결과</text></svg>`,
+    choices: ["85%", "55%", "45%", "90%"], answerText: "85%",
+    explain: "정확도는 (실제 양성을 양성으로 맞힌 45건 + 실제 음성을 음성으로 맞힌 40건) ÷ 전체 100건 = 85%입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "다음처럼 사람의 관절 위치를 점으로, 뼈대를 선으로 표현한 이미지를 이미지 생성 AI의 포즈 제어에 활용하는 기술은?",
+    svg: `<svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px;display:block;margin:0 auto"><rect width="300" height="170" rx="10" fill="#0F1631"/><g stroke="#35E0FF" stroke-width="3" stroke-linecap="round"><line x1="150" y1="35" x2="150" y2="90"/><line x1="150" y1="45" x2="105" y2="70"/><line x1="105" y1="70" x2="90" y2="105"/><line x1="150" y1="45" x2="195" y2="70"/><line x1="195" y1="70" x2="210" y2="105"/><line x1="150" y1="90" x2="120" y2="140"/><line x1="150" y1="90" x2="180" y2="140"/></g><circle cx="150" cy="20" r="14" fill="#FFCF5C"/><g fill="#FF7488"><circle cx="150" cy="45" r="5"/><circle cx="105" cy="70" r="5"/><circle cx="90" cy="105" r="5"/><circle cx="195" cy="70" r="5"/><circle cx="210" cy="105" r="5"/><circle cx="150" cy="90" r="5"/><circle cx="120" cy="140" r="5"/><circle cx="180" cy="140" r="5"/></g><text x="80" y="160" font-size="11" fill="#9AA8D8" font-family="sans-serif">관절 위치를 점과 선으로 표현</text></svg>`,
+    choices: ["오픈포즈(OpenPose)", "와이어프레임(Wireframe)", "히트맵(Heatmap)", "레이어(Layer)"], answerText: "오픈포즈(OpenPose)",
+    explain: "오픈포즈는 사람의 관절 위치를 점과 선으로 추출한 뼈대 이미지로, ControlNet 등과 함께 사용해 생성 이미지의 인물 포즈를 원하는 대로 제어할 수 있게 해줍니다. (예상문제)" },
+  { type: "mc", mock: true, q: "다음 산점도(Scatter Plot)에서 공부 시간과 시험 점수 사이에 나타나는 관계로 가장 적절한 것은?",
+    svg: `<svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px;display:block;margin:0 auto"><rect width="300" height="170" rx="10" fill="#0F1631"/><line x1="40" y1="15" x2="40" y2="140" stroke="#9AA8D8" stroke-width="1.5"/><line x1="40" y1="140" x2="280" y2="140" stroke="#9AA8D8" stroke-width="1.5"/><g fill="#35E0FF"><circle cx="60" cy="125" r="4"/><circle cx="80" cy="118" r="4"/><circle cx="95" cy="110" r="4"/><circle cx="110" cy="105" r="4"/><circle cx="120" cy="95" r="4"/><circle cx="140" cy="90" r="4"/><circle cx="150" cy="80" r="4"/><circle cx="170" cy="75" r="4"/><circle cx="185" cy="65" r="4"/><circle cx="200" cy="58" r="4"/><circle cx="215" cy="50" r="4"/><circle cx="230" cy="45" r="4"/><circle cx="250" cy="35" r="4"/><circle cx="100" cy="120" r="4"/><circle cx="160" cy="85" r="4"/><circle cx="210" cy="55" r="4"/></g><text x="120" y="158" font-size="11" fill="#9AA8D8" font-family="sans-serif">공부 시간 →</text><text x="8" y="80" font-size="11" fill="#9AA8D8" font-family="sans-serif" transform="rotate(-90 8 80)">점수 →</text></svg>`,
+    choices: ["양의 상관관계(공부 시간이 늘수록 점수도 오른다)", "음의 상관관계(공부 시간이 늘수록 점수는 내린다)", "아무런 관계가 없다", "공부 시간이 늘면 점수가 늘다가 갑자기 0이 된다"], answerText: "양의 상관관계(공부 시간이 늘수록 점수도 오른다)",
+    explain: "점들이 오른쪽 위로 갈수록 함께 높아지는 패턴을 보이므로, 두 변수는 양의 상관관계를 가집니다. (예상문제)" },
+  { type: "mc", mock: true, q: "다음처럼 여러 변수 간의 관계를 격자로 나열하고, 관계의 강도를 색상의 진하기로 표현하는 시각화 도구는?",
+    svg: `<svg viewBox="0 0 300 170" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px;display:block;margin:0 auto"><rect width="300" height="170" rx="10" fill="#0F1631"/><g>
+<rect x="70" y="20" width="45" height="45" fill="rgba(53,224,255,0.95)"/><rect x="115" y="20" width="45" height="45" fill="rgba(53,224,255,0.55)"/><rect x="160" y="20" width="45" height="45" fill="rgba(53,224,255,0.15)"/><rect x="205" y="20" width="45" height="45" fill="rgba(255,116,136,0.35)"/>
+<rect x="70" y="65" width="45" height="45" fill="rgba(53,224,255,0.55)"/><rect x="115" y="65" width="45" height="45" fill="rgba(53,224,255,0.95)"/><rect x="160" y="65" width="45" height="45" fill="rgba(255,116,136,0.35)"/><rect x="205" y="65" width="45" height="45" fill="rgba(53,224,255,0.15)"/>
+<rect x="70" y="110" width="45" height="45" fill="rgba(53,224,255,0.15)"/><rect x="115" y="110" width="45" height="45" fill="rgba(255,116,136,0.35)"/><rect x="160" y="110" width="45" height="45" fill="rgba(53,224,255,0.95)"/><rect x="205" y="110" width="45" height="45" fill="rgba(53,224,255,0.55)"/>
+</g><text x="70" y="12" font-size="10" fill="#9AA8D8" font-family="sans-serif">변수 간 상관관계 강도 (색이 진할수록 강함)</text></svg>`,
+    choices: ["히트맵(Heatmap)", "워드 클라우드(Word Cloud)", "트리맵(Treemap)", "도넛 차트(Donut Chart)"], answerText: "히트맵(Heatmap)",
+    explain: "히트맵은 데이터 값을 색상의 진하기(또는 색조)로 표현한 그래프로, 여러 변수 간의 상관관계를 한눈에 파악할 때 자주 사용됩니다. (예상문제)" },
+  { type: "mc", mock: true, q: "이미 다른 문제로 학습된 모델의 지식을 유사한 새로운 문제에 재활용하는 학습 기법은?",
+    choices: ["전이학습(Transfer Learning)", "강화학습(Reinforcement Learning)", "비지도학습(Unsupervised Learning)", "분산학습(Distributed Learning)"], answerText: "전이학습(Transfer Learning)",
+    explain: "전이학습은 대규모 데이터로 미리 학습된 모델의 지식을 가져와, 적은 데이터로도 유사한 새로운 문제에 빠르게 적응시키는 기법입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "텍스트나 이미지 같은 데이터를 컴퓨터가 의미적 유사도를 계산할 수 있는 숫자 벡터로 변환하는 기법을 무엇이라 하는가?",
+    choices: ["임베딩(Embedding)", "인코딩(Encoding, 압축)", "라벨링(Labeling)", "토크나이징(Tokenizing)"], answerText: "임베딩(Embedding)",
+    explain: "임베딩은 텍스트·이미지 등의 데이터를 의미가 가까울수록 서로 가까운 위치에 놓이는 벡터로 변환하는 기법으로, 검색·추천·RAG 등에 폭넓게 활용됩니다. (예상문제)" },
+  { type: "mc", mock: true, q: "임베딩된 벡터 데이터를 저장해두고, 의미가 유사한 데이터를 빠르게 검색할 수 있도록 최적화된 데이터베이스는?",
+    choices: ["벡터 데이터베이스(Vector DB)", "관계형 데이터베이스(RDB)", "블록체인(Blockchain)", "캐시 서버(Cache Server)"], answerText: "벡터 데이터베이스(Vector DB)",
+    explain: "벡터 데이터베이스는 임베딩 벡터를 저장하고 유사도 기반 검색에 최적화된 데이터베이스로, RAG 시스템에서 관련 문서를 빠르게 찾는 데 활용됩니다. (예상문제)" },
+  { type: "mc", mock: true, q: "단어의 정확한 일치 여부가 아니라 의미적 유사도를 기반으로 검색 결과를 찾아주는 검색 방식은?",
+    choices: ["시맨틱 검색(Semantic Search)", "키워드 검색(Keyword Search)", "전체 텍스트 검색(Full-text Search)", "와일드카드 검색(Wildcard Search)"], answerText: "시맨틱 검색(Semantic Search)",
+    explain: "시맨틱 검색은 단어가 정확히 일치하지 않아도 의미가 비슷한 내용을 찾아주는 검색 방식으로, 임베딩과 벡터 데이터베이스를 기반으로 동작합니다. (예상문제)" },
+  { type: "mc", mock: true, q: "인공신경망에서 데이터가 가장 먼저 입력되는 층을 무엇이라 하는가?",
+    choices: ["입력층(Input Layer)", "은닉층(Hidden Layer)", "출력층(Output Layer)", "합성곱층(Convolution Layer)"], answerText: "입력층(Input Layer)",
+    explain: "입력층은 신경망에 데이터가 처음 들어오는 층이며, 이후 은닉층을 거쳐 출력층에서 최종 결과가 나옵니다. (예상문제)" },
+  { type: "mc", mock: true, q: "인공신경망에서 각 입력값에 곱해지며, 학습 과정을 통해 값이 점차 조정되는 것을 무엇이라 하는가?",
+    choices: ["가중치(Weight)", "시드(Seed)", "토큰(Token)", "레이블(Label)"], answerText: "가중치(Weight)",
+    explain: "가중치는 신경망의 각 연결마다 존재하는 값으로, 학습 과정에서 오차를 줄이는 방향으로 점차 조정됩니다. (예상문제)" },
+  { type: "mc", mock: true, q: "모델의 예측값과 실제 정답 사이의 차이(오차)를 하나의 수치로 나타내는 함수를 무엇이라 하는가?",
+    choices: ["손실 함수(Loss Function)", "활성화 함수(Activation Function)", "목적어(Object)", "시드 함수(Seed Function)"], answerText: "손실 함수(Loss Function)",
+    explain: "손실 함수는 모델의 예측이 실제 정답과 얼마나 다른지를 수치로 나타내며, 이 값을 최소화하는 방향으로 모델이 학습됩니다. (예상문제)" },
+  { type: "mc", mock: true, q: "손실 함수의 값을 최소화하는 방향으로 모델의 가중치를 점진적으로 업데이트하는 대표적인 최적화 알고리즘은?",
+    choices: ["경사하강법(Gradient Descent)", "몬테카를로 트리 검색(MCTS)", "혼동행렬(Confusion Matrix)", "정규분포(Normal Distribution)"], answerText: "경사하강법(Gradient Descent)",
+    explain: "경사하강법은 손실 함수의 기울기(경사)를 계산해, 손실이 줄어드는 방향으로 가중치를 조금씩 이동시키며 최적값을 찾아가는 알고리즘입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "여러 클래스에 대한 예측 점수를 모두 더하면 1이 되는 확률값으로 변환해주는, 다중 분류 모델의 출력층에서 주로 쓰이는 함수는?",
+    choices: ["소프트맥스(Softmax)", "렐루(ReLU)", "시그모이드(Sigmoid)", "드롭아웃(Dropout)"], answerText: "소프트맥스(Softmax)",
+    explain: "소프트맥스 함수는 여러 클래스에 대한 점수를 합이 1인 확률 분포로 변환해, 가장 확률이 높은 클래스를 예측 결과로 선택할 수 있게 해줍니다. (예상문제)" },
+  { type: "mc", mock: true, q: "'빨강', '파랑', '초록' 같은 범주형 데이터를 0과 1로 이루어진 벡터로 변환하는 대표적인 인코딩 기법은?",
+    choices: ["원-핫 인코딩(One-Hot Encoding)", "런렝스 인코딩(Run-Length Encoding)", "베이스64 인코딩(Base64)", "해시 인코딩(Hash Encoding)"], answerText: "원-핫 인코딩(One-Hot Encoding)",
+    explain: "원-핫 인코딩은 범주마다 하나의 자리만 1이고 나머지는 0인 벡터로 표현하는 방식으로, 문자로 된 범주형 데이터를 모델이 다룰 수 있는 숫자로 바꿔줍니다. (예상문제)" },
+  { type: "mc", mock: true, q: "대량의 데이터에서 유의미한 패턴이나 규칙을 발견해내는 과정을 무엇이라 하는가?",
+    choices: ["데이터 마이닝(Data Mining)", "데이터 라벨링(Data Labeling)", "데이터 증강(Data Augmentation)", "데이터 삭제(Data Deletion)"], answerText: "데이터 마이닝(Data Mining)",
+    explain: "데이터 마이닝은 대량의 데이터 속에서 통계적·규칙적 패턴을 찾아내 유의미한 정보를 추출하는 과정입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "웹사이트를 자동으로 순회하며 필요한 데이터를 수집하는 기술을 무엇이라 하는가?",
+    choices: ["웹 크롤링(Web Crawling)", "웹 호스팅(Web Hosting)", "웹 캐싱(Web Caching)", "웹 마이닝(Web Mining, 사용자 행동 분석)"], answerText: "웹 크롤링(Web Crawling)",
+    explain: "웹 크롤링은 프로그램(크롤러)이 웹페이지를 자동으로 순회하며 텍스트·이미지 등의 데이터를 수집하는 기술로, AI 학습 데이터 확보에도 활용되지만 저작권 이슈가 뒤따를 수 있습니다. (예상문제)" },
+  { type: "mc", mock: true, q: "사람 눈에는 보이지 않는 미세한 노이즈를 이미지에 추가해, AI 이미지 인식 모델이 전혀 다른 대상으로 잘못 판단하도록 속이는 공격 기법은?",
+    choices: ["적대적 공격(Adversarial Attack)", "프롬프트 인젝션(Prompt Injection)", "역방향 쉘(Reverse Shell)", "피싱(Phishing)"], answerText: "적대적 공격(Adversarial Attack)",
+    explain: "적대적 공격은 사람 눈에는 거의 티가 나지 않는 미세한 노이즈를 입력에 더해, AI 모델이 잘못된 판단을 내리도록 유도하는 보안 위협입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "프롬프트 인젝션 공격을 방어하기 위한 방법으로 가장 적절한 것은?",
+    choices: ["사용자 입력과 시스템 지시를 명확히 구분해 처리한다", "사용자가 입력한 내용을 모두 시스템 지시로 취급한다", "외부 입력을 검증 없이 그대로 실행한다", "보안 설정을 모두 비활성화한다"], answerText: "사용자 입력과 시스템 지시를 명확히 구분해 처리한다",
+    explain: "프롬프트 인젝션을 방어하려면 시스템이 미리 정한 지시와 사용자가 입력한 내용을 구분해 처리하고, 민감한 동작 전에는 검증 절차를 두는 것이 중요합니다. (예상문제)" },
+  { type: "mc", mock: true, q: "대형 모델이 학습한 지식을 상대적으로 작은 모델에 전이시켜, 성능은 최대한 유지하면서 모델 크기를 줄이는 기법은?",
+    choices: ["지식 증류(Knowledge Distillation)", "데이터 증강(Data Augmentation)", "전이학습(Transfer Learning)", "앙상블(Ensemble)"], answerText: "지식 증류(Knowledge Distillation)",
+    explain: "지식 증류는 크고 정확한 '교사 모델'의 지식을 작고 가벼운 '학생 모델'에 전달해, 성능 저하를 최소화하면서도 가볍게 만드는 경량화 기법입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "모델의 가중치를 표현하는 데 사용하는 비트 수를 줄여, 모델의 크기와 연산량을 줄이는 경량화 기법은?",
+    choices: ["양자화(Quantization)", "정규화(Normalization)", "증강(Augmentation)", "라벨링(Labeling)"], answerText: "양자화(Quantization)",
+    explain: "양자화는 32비트로 표현되던 가중치 값을 8비트 등으로 줄여, 모델 용량과 연산 부담을 낮추는 경량화 기법으로 온디바이스 AI 구현에 자주 활용됩니다. (예상문제)" },
+  { type: "mc", mock: true, q: "사용자의 목표를 이해하고, 스스로 여러 단계를 계획해 필요한 도구를 사용하며 작업을 자율적으로 수행하는 AI 시스템을 무엇이라 하는가?",
+    choices: ["AI 에이전트(AI Agent)", "AI 챗봇(단순 응답형)", "AI 위젯(Widget)", "AI 플러그인(Plugin)"], answerText: "AI 에이전트(AI Agent)",
+    explain: "AI 에이전트는 사람이 매 단계 지시하지 않아도, 목표 달성을 위해 스스로 계획을 세우고 필요한 도구(웹 검색, 코드 실행 등)를 사용해 작업을 자율적으로 수행하는 AI 시스템입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "챗GPT가 사용자의 요청에 따라 파이썬 코드를 직접 작성·실행해 데이터 분석이나 계산을 수행해주는 기능을 무엇이라 하는가?",
+    choices: ["코드 인터프리터(Code Interpreter, 고급 데이터 분석)", "프롬프트 인젝션", "맞춤형 지침", "시스템 프롬프트"], answerText: "코드 인터프리터(Code Interpreter, 고급 데이터 분석)",
+    explain: "코드 인터프리터(고급 데이터 분석) 기능은 챗GPT가 필요한 경우 파이썬 코드를 스스로 작성하고 실행해, 파일 분석이나 복잡한 계산 결과를 바로 제공해주는 기능입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "사람의 음성을 텍스트로 변환하는 기술을 무엇이라 하는가?",
+    choices: ["STT(Speech-to-Text)", "TTS(Text-to-Speech)", "OCR(광학 문자 인식)", "NLP(자연어 처리)"], answerText: "STT(Speech-to-Text)",
+    explain: "STT는 음성을 텍스트로 변환하는 기술이며, 반대로 텍스트를 음성으로 변환하는 것은 TTS입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "프로그래밍 코드를 작성하는 도중 자동으로 다음 코드를 제안·완성해주는 데 특화된 AI 도구로, 마이크로소프트의 범용 비서형 AI인 Copilot과는 별개의 서비스는?",
+    choices: ["깃허브 코파일럿(GitHub Copilot)", "마이크로소프트 코파일럿(Microsoft Copilot)", "코파일럿 스튜디오(Copilot Studio)", "코파일럿 디자이너(Copilot Designer)"], answerText: "깃허브 코파일럿(GitHub Copilot)",
+    explain: "깃허브 코파일럿은 코드 작성에 특화된 AI 도구로, 문서 작성이나 일반 대화에 쓰이는 마이크로소프트 코파일럿과는 서로 다른 별개의 서비스입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "실시간 웹 검색 결과를 바탕으로 출처를 표시하며 답변하는 데 특화된 AI 검색 챗봇으로 가장 적절한 것은?",
+    choices: ["퍼플렉시티(Perplexity)", "포토샵(Photoshop)", "엑셀(Excel)", "슬랙(Slack)"], answerText: "퍼플렉시티(Perplexity)",
+    explain: "퍼플렉시티는 질문에 대해 실시간으로 웹을 검색하고, 답변에 참고한 출처 링크를 함께 제시하는 데 특화된 AI 검색 챗봇입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "이미지 편집 프로그램인 포토샵의 생성형 채우기 등에 활용되는, 어도비의 생성형 AI 모델 이름은?",
+    choices: ["파이어플라이(Firefly)", "라이트룸(Lightroom)", "일러스트레이터(Illustrator)", "프리미어(Premiere)"], answerText: "파이어플라이(Firefly)",
+    explain: "어도비 파이어플라이는 포토샵의 생성형 채우기 등에 활용되는 어도비의 생성형 AI 모델로, 라이선스가 확인된 이미지 위주로 학습되었다는 점을 강조하는 것이 특징입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "텍스트 프롬프트만으로 짧은 동영상을 생성해주는 기술 및 서비스 범주를 무엇이라 하는가?",
+    choices: ["텍스트-투-비디오(Text-to-Video)", "텍스트-투-스피치(Text-to-Speech)", "텍스트-투-이미지(Text-to-Image)", "비디오-투-텍스트(Video-to-Text)"], answerText: "텍스트-투-비디오(Text-to-Video)",
+    explain: "텍스트-투-비디오는 텍스트 프롬프트를 입력해 짧은 동영상을 생성하는 기술로, 최근 여러 생성 AI 서비스가 이 기능을 지원하기 시작했습니다. (예상문제)" },
+  { type: "mc", mock: true, q: "텍스트 프롬프트를 입력해 음악(멜로디·가사·보컬)을 생성해주는 AI 서비스로 가장 적절한 것은?",
+    choices: ["수노(Suno)", "캔바(Canva)", "노션(Notion)", "피그마(Figma)"], answerText: "수노(Suno)",
+    explain: "수노(Suno)는 원하는 장르나 분위기를 텍스트로 입력하면 가사와 멜로디, 보컬까지 포함된 음악을 생성해주는 AI 음악 생성 서비스입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "네이버가 개발한, 한국어에 특화된 초거대 언어 모델의 이름은?",
+    choices: ["하이퍼클로바X(HyperCLOVA X)", "제미나이(Gemini)", "라마(Llama)", "미스트랄(Mistral)"], answerText: "하이퍼클로바X(HyperCLOVA X)",
+    explain: "하이퍼클로바X는 네이버가 개발한 한국어 특화 초거대 언어 모델로, 한국어와 한국 문화적 맥락에 대한 이해도를 강점으로 내세웁니다. (예상문제)" },
+  { type: "mc", mock: true, q: "국내 스타트업이 개발한, 여러 생성 AI 모델을 하나의 채팅창에서 골라 사용할 수 있는 한국어 특화 생성 AI 플랫폼은?",
+    choices: ["뤼튼(Wrtn)", "캐릭터에이아이(Character.ai)", "슬랙(Slack)", "노션(Notion)"], answerText: "뤼튼(Wrtn)",
+    explain: "뤼튼은 국내 스타트업이 만든 생성 AI 플랫폼으로, 다양한 AI 모델과 템플릿을 하나의 서비스 안에서 목적에 맞게 골라 쓸 수 있는 것이 특징입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "예전 '빙 챗(Bing Chat)'이라는 이름으로 서비스되던 마이크로소프트의 AI 챗봇은 현재 어떤 이름으로 통합되었는가?",
+    choices: ["코파일럿(Copilot)", "빙 AI 프로(Bing AI Pro)", "엣지 어시스턴트(Edge Assistant)", "윈도우 AI(Windows AI)"], answerText: "코파일럿(Copilot)",
+    explain: "마이크로소프트는 '빙 챗'으로 서비스되던 AI 챗봇의 이름을 '코파일럿(Copilot)'으로 통합해 브랜딩을 일원화했습니다. (예상문제)" },
+  { type: "mc", mock: true, q: "인공지능(Artificial Intelligence)이라는 용어가 학술적으로 처음 사용된 것으로 널리 알려진 1956년의 학술 행사는?",
+    choices: ["다트머스 회의(Dartmouth Conference)", "제네바 회의", "세계경제포럼(WEF)", "튜링 어워드 시상식"], answerText: "다트머스 회의(Dartmouth Conference)",
+    explain: "1956년 다트머스 회의에서 존 매카시 등의 학자들이 '인공지능(Artificial Intelligence)'이라는 용어를 처음 공식적으로 사용한 것으로 널리 알려져 있습니다. (예상문제)" },
+  { type: "mc", mock: true, q: "인터넷 연결 없이 스마트폰 등 기기에 AI 연산 전용 반도체를 탑재해 처리 속도를 높이는, 최근 스마트폰 AP에 자주 탑재되는 처리장치는?",
+    choices: ["NPU(신경망 처리장치)", "CPU(중앙처리장치)", "RAM(메인 메모리)", "HDD(하드디스크)"], answerText: "NPU(신경망 처리장치)",
+    explain: "NPU(Neural Processing Unit)는 신경망 연산에 특화된 전용 반도체로, 온디바이스 AI 기능을 빠르고 효율적으로 처리하기 위해 최신 스마트폰 AP에 함께 탑재되는 경우가 많습니다. (예상문제)" },
+  { type: "mc", mock: true, q: "국내에서 매개변수 수가 매우 많은 대규모 AI 모델을 부르는, 언론과 업계에서 자주 쓰이는 용어는?",
+    choices: ["초거대 AI", "경량 AI", "임베디드 AI", "레거시 AI"], answerText: "초거대 AI",
+    explain: "'초거대 AI'는 매개변수 수가 매우 많은 대규모 언어 모델을 가리키는 국내 용어로, 하이퍼클로바X 등의 모델을 설명할 때 자주 사용됩니다. (예상문제)" },
+  { type: "mc", mock: true, q: "AI가 작성한 글인지 여부를 분석해 판별해주는 도구를 통칭하는 말로 가장 적절한 것은?",
+    choices: ["AI 탐지기(AI Content Detector)", "AI 워터마킹(AI Watermarking)", "AI 리터러시(AI Literacy)", "AI 에이전트(AI Agent)"], answerText: "AI 탐지기(AI Content Detector)",
+    explain: "AI 탐지기는 문장의 통계적 패턴을 분석해 AI가 작성했을 가능성을 알려주는 도구로, 교육 현장 등에서 과제의 AI 작성 여부를 참고하는 용도로 쓰입니다. 다만 100% 정확하지는 않습니다. (예상문제)" },
+  { type: "mc", mock: true, q: "사용자의 과거 행동 데이터를 분석해 개인 맞춤형 콘텐츠나 상품을 자동으로 제안해주는 AI 기술을 무엇이라 하는가?",
+    choices: ["추천 시스템(Recommendation System)", "검색 엔진(Search Engine)", "방화벽(Firewall)", "캐시 메모리(Cache Memory)"], answerText: "추천 시스템(Recommendation System)",
+    explain: "추천 시스템은 사용자의 과거 클릭·구매·시청 이력 등을 분석해 관심 있어 할 만한 콘텐츠나 상품을 자동으로 제안해주는 AI 기술로, 쇼핑몰·동영상 서비스 등에 널리 쓰입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "미드저니에서 생성한 이미지의 가장자리가 매끄럽게 반복되어 벽지나 패턴처럼 이어지도록 만들 때 사용하는 파라미터는?",
+    choices: ["--tile", "--ar", "--chaos", "--stop"], answerText: "--tile",
+    explain: "--tile 옵션을 사용하면 이미지의 좌우·상하 가장자리가 자연스럽게 이어져, 반복되는 패턴이나 텍스처를 만들 때 유용합니다. (예상문제)" },
+  { type: "mc", mock: true, q: "정해진 시나리오와 규칙에 따라서만 응답하던 기존 챗봇과 달리, 학습한 패턴을 바탕으로 새로운 문장·이미지 등을 스스로 만들어내는 AI를 무엇이라 하는가?",
+    choices: ["생성형 AI(Generative AI)", "규칙 기반 챗봇(Rule-based Chatbot)", "전문가 시스템(Expert System)", "검색 엔진(Search Engine)"], answerText: "생성형 AI(Generative AI)",
+    explain: "생성형 AI는 미리 정해둔 답변 목록에서 고르는 것이 아니라, 학습한 패턴을 바탕으로 매번 새로운 문장·이미지·음성 등을 스스로 생성해내는 AI를 말합니다. (예상문제)" },
+  { type: "ox", mock: true, q: "전이학습(Transfer Learning)을 활용하면, 이미 학습된 모델의 지식을 재사용해 적은 데이터로도 새로운 문제에 빠르게 적응시킬 수 있다.", answer: true,
+    explain: "전이학습의 핵심 장점은 처음부터 다시 학습하지 않고도, 기존 지식을 재사용해 적은 데이터와 시간으로 새로운 작업에 적응시킬 수 있다는 점입니다. (예상문제)" },
+  { type: "ox", mock: true, q: "임베딩(Embedding)은 텍스트나 이미지를 사람이 읽을 수 있는 문장으로 그대로 옮겨 적는 작업을 의미한다.", answer: false,
+    explain: "임베딩은 문장으로 옮겨 적는 것이 아니라, 데이터를 의미적 유사도를 계산할 수 있는 숫자 벡터로 변환하는 작업입니다. (예상문제)" },
+  { type: "ox", mock: true, q: "AI 에이전트(AI Agent)는 사람의 개입 없이도 스스로 계획을 세우고 도구를 사용해 여러 단계의 작업을 자율적으로 수행할 수 있다.", answer: true,
+    explain: "AI 에이전트는 목표만 주어지면 하위 계획 수립, 도구 사용, 결과 확인까지 스스로 진행할 수 있다는 점에서 단순 응답형 챗봇과 구분됩니다. (예상문제)" },
+  { type: "ox", mock: true, q: "양자화(Quantization)와 지식 증류(Knowledge Distillation)는 모두 모델을 더 무겁고 크게 만들기 위한 기법이다.", answer: false,
+    explain: "양자화와 지식 증류는 모두 모델의 성능을 최대한 유지하면서 크기와 연산량을 '줄이는' 경량화 기법입니다. (예상문제)" },
+  { type: "ox", mock: true, q: "깃허브 코파일럿(GitHub Copilot)과 마이크로소프트 코파일럿(Microsoft Copilot)은 이름은 비슷하지만 용도가 다른 서로 다른 서비스이다.", answer: true,
+    explain: "깃허브 코파일럿은 코드 작성에 특화된 도구이고, 마이크로소프트 코파일럿은 문서·검색 등 범용 업무를 돕는 비서형 AI로 서로 다른 서비스입니다. (예상문제)" },
+  { type: "ox", mock: true, q: "경사하강법(Gradient Descent)은 손실 함수의 값이 최대가 되는 방향으로 가중치를 이동시키는 알고리즘이다.", answer: false,
+    explain: "경사하강법은 손실 함수의 값이 '최소'가 되는 방향으로 가중치를 점진적으로 이동시키는 최적화 알고리즘입니다. (예상문제)" },
+  { type: "ox", mock: true, q: "소프트맥스(Softmax) 함수는 여러 클래스에 대한 예측값을 합이 1이 되는 확률 분포로 변환해준다.", answer: true,
+    explain: "소프트맥스는 다중 분류 문제에서 각 클래스에 대한 점수를 확률처럼 해석할 수 있도록, 합이 1이 되는 값으로 변환해주는 함수입니다. (예상문제)" },
+  { type: "ox", mock: true, q: "시맨틱 검색(Semantic Search)은 검색어와 문서에 동일한 단어가 포함되어 있는지만을 기준으로 결과를 찾아준다.", answer: false,
+    explain: "시맨틱 검색은 단어의 일치 여부가 아니라 '의미'의 유사도를 기준으로 결과를 찾아주는 검색 방식입니다. 단어 일치만 보는 것은 키워드 검색입니다. (예상문제)" },
+  { type: "ox", mock: true, q: "NPU(신경망 처리장치)는 신경망 연산에 특화되어, 온디바이스 AI 기능을 빠르고 효율적으로 처리하도록 돕는다.", answer: true,
+    explain: "NPU는 딥러닝 연산에 최적화된 전용 반도체로, 스마트폰 등에서 온디바이스 AI 기능을 빠르고 전력 효율적으로 수행하도록 돕습니다. (예상문제)" },
+  { type: "ox", mock: true, q: "AI 탐지기(AI Content Detector)는 문장의 AI 작성 여부를 100% 정확하게 판별할 수 있어, 그 결과만으로 표절 여부를 확정할 수 있다.", answer: false,
+    explain: "AI 탐지기는 통계적 패턴을 기반으로 확률적인 추정을 제공할 뿐, 100% 정확하지 않으므로 그 결과만으로 표절이나 부정행위를 단정해서는 안 됩니다. (예상문제)" },
+  { type: "mc", mock: true, q: "딥페이크 영상 여부를 기술적으로 판별하기 위한 접근 방법으로 가장 적절한 것은?",
+    choices: ["눈 깜빡임이나 미세한 표정 등 생체신호의 부자연스러움을 분석한다", "영상의 재생 속도만 확인한다", "영상 파일의 이름을 확인한다", "영상의 재생 시간이 5분을 넘는지 확인한다"], answerText: "눈 깜빡임이나 미세한 표정 등 생체신호의 부자연스러움을 분석한다",
+    explain: "딥페이크 탐지 기술은 눈 깜빡임 패턴, 미세한 표정·그림자의 부자연스러움 등 사람이 놓치기 쉬운 생체적 단서를 분석해 위조 여부를 판별하는 방식을 주로 사용합니다. (예상문제)" },
+  { type: "mc", mock: true, q: "딥러닝에서 활성화 함수 중 시그모이드(Sigmoid) 함수의 출력값 범위로 옳은 것은?",
+    choices: ["0 ~ 1 사이", "-1 ~ 1 사이", "0 ~ 무한대", "음의 무한대 ~ 양의 무한대"], answerText: "0 ~ 1 사이",
+    explain: "시그모이드 함수는 어떤 입력값이든 0과 1 사이의 값으로 압축해 출력하며, 주로 확률처럼 해석해야 하는 이진 분류 문제의 출력층에 사용됩니다. (예상문제)" },
+  { type: "mc", mock: true, q: "AI 모델이 학습에 사용할 데이터를 준비하는 과정에서, 개인을 식별할 수 없도록 이름·주민번호 등의 정보를 다른 값으로 대체하는 처리를 무엇이라 하는가?",
+    choices: ["가명 처리(비식별화)", "라벨링(Labeling)", "증강(Augmentation)", "정규화(Normalization)"], answerText: "가명 처리(비식별화)",
+    explain: "가명 처리는 개인을 식별할 수 있는 정보를 다른 값으로 대체해, 특정 개인을 알아볼 수 없도록 만드는 개인정보 보호 조치입니다. (예상문제)" },
+  { type: "ox", mock: true, q: "AI 학습에 사용되는 데이터에 저작권이 있는 콘텐츠가 포함될 경우, 저작권 침해 소지가 있을 수 있어 사전 검토가 필요하다.", answer: true,
+    explain: "저작권이 있는 콘텐츠를 정당한 권한 없이 AI 학습에 사용하면 저작권 침해 소지가 있으므로, 데이터 확보 단계에서부터 사전 검토가 필요합니다. (예상문제)" },
+  { type: "mc", mock: true, q: "챗봇 등 AI 서비스의 기능을 확장해, 외부 서비스(캘린더, 배달 앱 등)와 연동할 수 있게 해주는 추가 기능을 무엇이라 하는가?",
+    choices: ["플러그인/확장 프로그램(Plugin/Extension)", "시스템 프롬프트(System Prompt)", "토큰(Token)", "임베딩(Embedding)"], answerText: "플러그인/확장 프로그램(Plugin/Extension)",
+    explain: "플러그인(확장 프로그램)은 AI 챗봇이 기본 대화 기능을 넘어 외부 서비스와 연동해 예약, 주문, 검색 등의 작업을 수행할 수 있게 해주는 추가 기능입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "딥러닝 모델의 학습에 드는 막대한 전력 소비로 인해 최근 제기되고 있는 환경적 우려와 가장 관련이 깊은 것은?",
+    choices: ["AI 학습 및 데이터센터 운영에 따른 탄소 배출 문제", "AI가 그린 그림의 저작권 문제", "AI의 편향된 채용 추천 문제", "AI 챗봇의 응답 지연 문제"], answerText: "AI 학습 및 데이터센터 운영에 따른 탄소 배출 문제",
+    explain: "대규모 AI 모델의 학습과 이를 뒷받침하는 데이터센터 운영에는 막대한 전력이 소요되어, 탄소 배출 등 환경적 부담이 커지는 것이 최근 논의되는 우려 중 하나입니다. (예상문제)" },
+  { type: "mc", mock: true, q: "AI 서비스가 예측 가능하고 일관되게 작동하며, 오작동이 발생해도 피해를 최소화하도록 설계하는 것을 무엇이라 하는가?",
+    choices: ["AI 안전성(AI Safety)", "AI 리터러시(AI Literacy)", "AI 에이전트(AI Agent)", "AI 워터마킹(AI Watermarking)"], answerText: "AI 안전성(AI Safety)",
+    explain: "AI 안전성은 AI 시스템이 의도한 대로 예측 가능하게 작동하고, 오류나 악용 상황에서도 피해를 최소화하도록 설계·운영하는 것을 의미합니다. (예상문제)" },
+  { type: "ox", mock: true, q: "딥페이크 탐지 기술은 항상 100% 정확하게 진위를 판별할 수 있어, 별도의 교차 검증이 필요하지 않다.", answer: false,
+    explain: "딥페이크 기술이 발전할수록 탐지 기술도 함께 발전하고 있지만, 어떤 탐지 기술도 100% 정확하다고 보장할 수 없으므로 여러 방법을 통한 교차 검증이 필요합니다. (예상문제)" },
 ];
 
 /* ---------- 유틸 ---------- */
@@ -767,6 +949,26 @@ const FILL_SETS = [
         explain: "손 왜곡 방지용 네거티브 프롬프트는 'poor hands'입니다. cinematic·masterpiece는 분위기·품질을 높이는 일반(긍정) 키워드입니다. 정답: 10번(poor hands) (예상문제)" },
     ],
   },
+  {
+    name: "반려동물 캐릭터 굿즈 디자인 프롬프트 (예상문제 36~40번)",
+    mock: true,
+    intro: "다음은 미드저니로 반려동물 캐릭터 굿즈용 이미지를 만드는 작업 계획이다. 빈칸에 들어갈 내용을 <보기>에서 골라 번호로 답하시오.",
+    options: ["1:1", "--niji", "키링", "스티커", "3D 렌더링", "--tile", "실사 사진", "포토샵", "일러스트레이터", "5:4",
+      "화이트보드", "픽셀 아트", "--seed", "엑셀", "16:9", "레진아트", "--stylize", "PPT", "동화책 삽화", "굵은 외곽선"],
+    fullContext: "[작업 계획]\\n귀여운 골든리트리버를 애니메이션·일러스트 화풍으로 그리기 위해 미드저니 옵션에 ( ① ) 를 지정한다.\\n굿즈로 제작할 정사각형 스티커에 어울리도록 --ar ( ② ) 로 비율을 지정한다.\\n스티커로 오려 붙이기 좋도록, 프롬프트에 캐릭터 주변을 감싸는 '( ③ )'을 강조하는 문구를 추가한다.\\n생성된 이미지는 최종적으로 인쇄용 벡터 파일로 다듬기 위해 ( ④ ) 프로그램으로 옮겨 편집한다.\\n완성된 캐릭터는 냉장고 자석이나 ( ⑤ ) 같은 실물 굿즈로 제작해 배포할 예정이다.",
+    items: [
+      { blank: "①", answer: 2,
+        explain: "미드저니에서 애니메이션·일러스트 화풍에 특화된 모델을 쓰려면 --niji 옵션을 지정합니다. 정답: 2번(--niji) (예상문제)" },
+      { blank: "②", answer: 1,
+        explain: "정사각형 스티커에는 가로세로 비율이 1:1인 이미지가 어울립니다. 정답: 1번(1:1) (예상문제)" },
+      { blank: "③", answer: 20,
+        explain: "스티커로 오려내기 좋으려면 캐릭터와 배경을 뚜렷이 구분해주는 '굵은 외곽선'이 필요합니다. 정답: 20번(굵은 외곽선) (예상문제)" },
+      { blank: "④", answer: 9,
+        explain: "생성된 이미지를 인쇄용 벡터 파일로 다듬는 작업은 일러스트레이터 같은 벡터 편집 프로그램에서 합니다. 정답: 9번(일러스트레이터) (예상문제)" },
+      { blank: "⑤", answer: 3,
+        explain: "캐릭터를 활용한 대표적인 실물 굿즈로 열쇠고리인 '키링'이 있습니다. 정답: 3번(키링) (예상문제)" },
+    ],
+  },
 ];
 
 /* ---------- 세트 선택: 직전 회차와 같은 세트 연속 방지 (36~40 지시문 세트에만 적용) ---------- */
@@ -779,19 +981,22 @@ function pickSetIndex(count, last) {
 }
 
 function buildSession() {
-  // 1~30 스테이지: 문제 은행 랜덤(OX·객관식) / 31~35: 단답형 주관식(개별 풀에서 랜덤 5개) / 36~40: 지시문 주관식(세트 유지)
-  const base = shuffle(QUESTION_BANK).slice(0, TOTAL - 10).map((q, i) => {
+  // 지시문 주관식(36~40 유형)은 실제 시험에서 매번 나오는 것이 아니므로, 이번 회차엔 약 35% 확률로만 포함
+  const includeFill = Math.random() < 0.35;
+  const mcOxCount = includeFill ? TOTAL - 10 : TOTAL - 5; // 지시문 세트가 없으면 그만큼 OX·객관식으로 채움
+
+  const mcOx = shuffle(QUESTION_BANK).slice(0, mcOxCount).map((q) => {
     if (q.type === "mc") {
       const choices = shuffle(q.choices);
-      return { ...q, stage: i + 1, choices, correctIndex: choices.indexOf(q.answerText) };
+      return { ...q, choices, correctIndex: choices.indexOf(q.answerText) };
     }
-    return { ...q, stage: i + 1 };
+    return { ...q };
   });
-  // 단답형 세트들을 하나의 풀로 펼쳐 문항 단위로 랜덤 추출 (같은 세트일 필요 없음)
+
+  // 단답형: 4개 세트를 하나의 풀로 펼쳐 문항 단위로 랜덤 추출 (세트 구분 없이 개별적으로 섞임)
   const shortPool = SHORT_SETS.flatMap(set => set.items.map(it => ({ ...it, setName: set.name, mock: set.mock || false })));
-  const shorts = shuffle(shortPool).slice(0, 5).map((it, k) => ({
+  const shorts = shuffle(shortPool).slice(0, 5).map((it) => ({
     type: "short",
-    stage: TOTAL - 10 + k + 1,
     q: it.q,
     context: it.context,
     answerDisplay: it.answerDisplay,
@@ -800,22 +1005,31 @@ function buildSession() {
     setName: it.setName,
     mock: it.mock,
   }));
-  const fi = pickSetIndex(FILL_SETS.length, lastFillIdx); lastFillIdx = fi;
-  const fillSet = FILL_SETS[fi];
-  const fills = fillSet.items.map((it, k) => ({
-    type: "fill",
-    stage: TOTAL - 5 + k + 1,
-    q: `빈칸 ${it.blank} 에 들어갈 내용을 <보기>에서 골라 번호로 답하시오.`,
-    blank: it.blank,
-    setName: fillSet.name,
-    setIntro: fillSet.intro,
-    options: fillSet.options,
-    context: fillSet.fullContext,
-    answer: it.answer,
-    explain: it.explain,
-    mock: fillSet.mock || false,
-  }));
-  return [...base, ...shorts, ...fills];
+
+  // OX·객관식·단답형을 유형 구분 없이 완전히 뒤섞음
+  let pool = shuffle([...mcOx, ...shorts]);
+
+  if (includeFill) {
+    // 지시문 세트(5문제)는 하나의 공통 지문을 공유하므로 내부 순서(①~⑤)는 유지한 채, 뒤섞인 문제들 사이의 임의 위치에 통째로 끼워 넣음
+    const fi = pickSetIndex(FILL_SETS.length, lastFillIdx); lastFillIdx = fi;
+    const fillSet = FILL_SETS[fi];
+    const fills = fillSet.items.map((it) => ({
+      type: "fill",
+      q: `빈칸 ${it.blank} 에 들어갈 내용을 <보기>에서 골라 번호로 답하시오.`,
+      blank: it.blank,
+      setName: fillSet.name,
+      setIntro: fillSet.intro,
+      options: fillSet.options,
+      context: fillSet.fullContext,
+      answer: it.answer,
+      explain: it.explain,
+      mock: fillSet.mock || false,
+    }));
+    const insertAt = Math.floor(Math.random() * (pool.length + 1)); // 0 ~ pool.length 사이 임의 위치
+    pool = [...pool.slice(0, insertAt), ...fills, ...pool.slice(insertAt)];
+  }
+
+  return pool.map((q, i) => ({ ...q, stage: i + 1 }));
 }
 
 /* ---------- 3D 배경 (스테이지 아일랜드 경로) ---------- */
@@ -1196,7 +1410,7 @@ function AiPotQuest() {
           <div style={{ textAlign: "left", margin: "18px auto", maxWidth: 460, fontSize: 14, lineHeight: 1.6, color: C.text, background: "rgba(0,0,0,0.25)", borderRadius: 12, padding: "14px 18px", border: `1px solid ${C.line}` }}>
             <div style={{ marginBottom: 10 }}>🎮 총 <b style={{ color: C.gold }}>40개 스테이지</b> — 문제 1개 = 스테이지 1개</div>
             <div style={{ marginBottom: 10 }}>🎲 문제은행 <b style={{ color: C.cyan }}>{QUESTION_BANK.length}문항</b> 중 매 회차 랜덤 출제 (이어하기 없음)</div>
-            <div style={{ marginBottom: 10 }}>⭕ OX·객관식(1~30) + 단답형 주관식(31~35) + 지시문 주관식(36~40)</div>
+            <div style={{ marginBottom: 10 }}>⭕ OX·객관식·단답형 주관식이 유형 구분 없이 뒤섞여 출제되며, 회차에 따라 지시문 주관식(5문제)이 포함되기도 합니다</div>
             <div style={{ marginBottom: 10 }}>🏆 정답이면 금색, 오답이면 붉은 스테이지로 표시</div>
             <div style={{ marginBottom: 10 }}>◀▶ 이전/다음 버튼과 해설 패널로 40문제를 어떤 순서로든 자유롭게 이동할 수 있어요 (푼 문제는 수정 불가)</div>
             <div>📋 우측 <b>문제 해설</b> 패널에 풀이 기록과 해설이 쌓입니다</div>
@@ -1249,6 +1463,11 @@ function AiPotQuest() {
           )}
 
           <div style={{ fontSize: 17.5, lineHeight: 1.65, fontWeight: 600, marginBottom: 18 }}>{q.q}</div>
+
+          {q.svg && (
+            <div style={{ marginBottom: 18, borderRadius: 12, overflow: "hidden", border: `1px solid ${C.line}`, background: "rgba(0,0,0,0.2)", padding: "10px 4px" }}
+              dangerouslySetInnerHTML={{ __html: q.svg }} />
+          )}
 
           {/* 보기 */}
           {q.type === "ox" ? (
