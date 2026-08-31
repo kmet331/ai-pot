@@ -1058,16 +1058,26 @@ function StageWorld({ stageIndex, resultsRef, version }) {
     const glow = new THREE.PointLight(0xffa8cf, 1.5, 40);
     scene.add(glow);
 
-    // 별
+    // 별 (둥근 스프라이트 텍스처를 사용해, 점이 사각형으로 보이거나 카메라에 가까워졌을 때 각지게 커 보이는 것을 방지)
+    const starCanvas = document.createElement("canvas");
+    starCanvas.width = starCanvas.height = 32;
+    const starCtx = starCanvas.getContext("2d");
+    const starGrad = starCtx.createRadialGradient(16, 16, 0, 16, 16, 16);
+    starGrad.addColorStop(0, "rgba(255,255,255,1)");
+    starGrad.addColorStop(0.4, "rgba(159,180,255,0.8)");
+    starGrad.addColorStop(1, "rgba(159,180,255,0)");
+    starCtx.fillStyle = starGrad;
+    starCtx.fillRect(0, 0, 32, 32);
+    const starTexture = new THREE.CanvasTexture(starCanvas);
     const starGeo = new THREE.BufferGeometry();
     const starPos = new Float32Array(900 * 3);
     for (let i = 0; i < 900; i++) {
       starPos[i * 3] = (Math.random() - 0.5) * 220;
       starPos[i * 3 + 1] = Math.random() * 90 - 20;
-      starPos[i * 3 + 2] = -Math.random() * 320 + 30;
+      starPos[i * 3 + 2] = -Math.random() * 280 - 20; // 카메라와 최소 거리를 확보해 지나치게 가깝고 커 보이는 별 방지
     }
     starGeo.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
-    scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0x9fb4ff, size: 0.35, transparent: true, opacity: 0.8 })));
+    scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ map: starTexture, color: 0x9fb4ff, size: 0.6, transparent: true, opacity: 0.85, depthWrite: false })));
 
     // 스테이지 플랫폼 40개 (구불구불한 경로)
     const platformPos = [];
@@ -1103,28 +1113,39 @@ function StageWorld({ stageIndex, resultsRef, version }) {
     body.scale.y = 0.92;
     player.add(body);
     const eyeDark = new THREE.MeshBasicMaterial({ color: 0x22243a });
-    // '><' 찡긋 윙크 눈: 막대 2개가 꺾여 만나는 지점(뾰족한 끝)이 얼굴 중앙 쪽을 향하도록 배치
-    const winkBarGeo = new THREE.BoxGeometry(0.17, 0.045, 0.02);
-    winkBarGeo.translate(0.085, 0, 0); // 회전 축(꼭짓점)을 막대 왼쪽 끝으로 이동
+    // '><' 찡긋 윙크 눈: 이전엔 z가 0.72로 낮아 구 표면(그 위치에서 필요한 z는 약 0.77~0.79)에 눈이 파묻혀
+    // 꼭짓점 쪽이 가려 보였음 → z를 0.80으로 올려 완전히 표면 앞으로 나오도록 수정
+    const winkBarGeo = new THREE.BoxGeometry(0.15, 0.045, 0.02);
+    winkBarGeo.translate(0.075, 0, 0); // 회전 축(꼭짓점)을 막대 안쪽 끝으로 이동
     [[-0.3, 1], [0.3, -1]].forEach(([x, mirror]) => { // mirror: 왼쪽 눈은 '>' 모양, 오른쪽 눈은 '<' 모양
       const baseAngle = mirror === 1 ? Math.PI : 0; // 꼭짓점이 얼굴 중앙(코 쪽)을 향하는 기준각
       const spread = 0.55;
       [baseAngle - spread, baseAngle + spread].forEach(angle => {
         const bar = new THREE.Mesh(winkBarGeo, eyeDark);
-        bar.position.set(x, 0.18, 0.72);
+        bar.position.set(x, 0.18, 0.8);
         bar.rotation.z = angle;
         player.add(bar);
       });
+      // 꼭짓점을 작은 원으로 한 번 더 덮어 두 막대의 접합부를 매끈하게 마무리
+      const tip = new THREE.Mesh(new THREE.CircleGeometry(0.024, 10), eyeDark);
+      tip.position.set(x, 0.18, 0.805);
+      player.add(tip);
     });
+    // 볼터치: (x=0.5,y=-0.08) 위치에서 표면에 걸치려면 z가 최소 0.683은 되어야 하는데
+    // 이전 z=0.6은 이보다 낮아 공 안쪽에 파묻혀 안 보였음 → z=0.72로 올려 표면 앞으로 나오게 수정
     const blushMat = new THREE.MeshBasicMaterial({ color: 0xff5f95, transparent: true, opacity: 0.85 });
-    [-0.55, 0.55].forEach(x => {
-      const b = new THREE.Mesh(new THREE.CircleGeometry(0.11, 16), blushMat);
-      b.position.set(x, -0.06, 0.66); b.lookAt(new THREE.Vector3(x * 4, -0.06, 4)); player.add(b);
+    [-0.5, 0.5].forEach(x => {
+      const b = new THREE.Mesh(new THREE.CircleGeometry(0.115, 20), blushMat);
+      const by = -0.08, bz = 0.72;
+      b.position.set(x, by, bz);
+      b.lookAt(x * 2, by * 2, bz * 2);
+      player.add(b);
     });
-    // 입: 완만한 곡선의 스마일 (참고 이미지의 앙증맞은 미소 형태)
+    // 입: 얼굴 중앙(x≈0)이라 필요한 z가 최대 약 0.85에 달하는데 이전 z=0.8은 이보다 낮아 파묻혀 안 보였음
+    // → z=0.87로 올려 완전히 표면 앞으로 나오게 수정
     const mouthGeo = new THREE.TorusGeometry(0.09, 0.02, 8, 20, Math.PI);
     const mouth = new THREE.Mesh(mouthGeo, eyeDark);
-    mouth.position.set(0, -0.02, 0.8);
+    mouth.position.set(0, -0.02, 0.87);
     mouth.rotation.z = Math.PI; // 반원의 볼록한 면이 아래로 오도록 뒤집어 '스마일' 곡선으로 표현
     player.add(mouth);
     const footMat = new THREE.MeshStandardMaterial({ color: 0xe8486e, roughness: 0.5 });
