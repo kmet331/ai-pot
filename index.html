@@ -4,6 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>AI-POT 2급 QUEST</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
   html, body { margin:0; padding:0; background:#0B1023; height:100%; }
   #root { min-height:100vh; }
@@ -61,7 +62,7 @@ const QUESTION_BANK = [
     choices: ["의미 파싱(Semantic Parsing)", "의미 함축(Semantic Entailment)", "구문 분석(Parsing)", "텍스트 함축(Textual Entailment)"], answerText: "의미 파싱(Semantic Parsing)",
     explain: "의미 파싱은 자연어를 기계가 실행 가능한 의미 표현(코드·쿼리 등)으로 변환하는 기술입니다. (기출 A형 9번)" },
   { type: "mc", q: "제미나이(Gemini)의 특징으로 올바르지 않은 것은?",
-    svg: `<svg viewBox="0 0 340 110" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:400px;display:block;margin:0 auto"><rect width="340" height="110" rx="8" fill="#0F1631"/><rect x="20" y="34" width="300" height="46" rx="23" fill="#182046" stroke="#3A4A7A" stroke-width="1.5"/><text x="36" y="63" font-size="15" fill="#C7D2F0" font-family="sans-serif">Gemini에게 물어보기</text><rect x="291" y="46" width="10" height="16" rx="5" fill="none" stroke="#35E0FF" stroke-width="1.6"/><path d="M 288 60 a 8 8 0 0 0 16 0" stroke="#35E0FF" stroke-width="1.6" fill="none"/><line x1="296" y1="68" x2="296" y2="72" stroke="#35E0FF" stroke-width="1.6"/><line x1="291" y1="72" x2="301" y2="72" stroke="#35E0FF" stroke-width="1.6"/></svg>`,
+    iconRow: { icon: "fa-solid fa-microphone", label: "\u201cGemini에게 물어보기\u201d 검색창" },
     choices: ["거대 멀티모달 모델(LMM)이다", "바드(Bard)에서 명칭이 바뀌었다", "텍스트, 그림, 영상, 소리 등을 입력할 수 있다", "검색엔진 데이터를 사용하지 않는다"], answerText: "검색엔진 데이터를 사용하지 않는다",
     explain: "제미나이는 구글의 검색 데이터를 활용할 수 있는 거대 멀티모달 모델로, 바드에서 이름이 변경되었습니다. (기출 A형 10번)" },
   { type: "mc", q: "다음 중 프롬프트의 구성요소가 아닌 것은?",
@@ -76,11 +77,13 @@ const QUESTION_BANK = [
     choices: ["Top-p", "Beam Width", "Temperature", "stop"], answerText: "Temperature",
     explain: "Temperature는 출력의 무작위성을 조절하는 하이퍼파라미터로, 값이 높을수록 창의적이고 예측 불가능한 답변이 나옵니다. (기출 A형 13번)" },
   { type: "mc", q: "이미지를 업로드하고 그 이미지를 분석해 키워드를 나열하도록 지시하는 프롬프트 기법은?",
-    svg: `<svg viewBox="0 0 340 150" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:400px;display:block;margin:0 auto"><rect width="340" height="150" rx="8" fill="#0F1631"/><text x="170" y="24" font-size="13.5" fill="#9AA8D8" font-family="sans-serif" text-anchor="middle">무엇을 도와드릴까요?</text><rect x="18" y="36" width="304" height="98" rx="8" fill="none" stroke="#FF7488" stroke-width="1.4" stroke-dasharray="4 3"/><rect x="30" y="46" width="34" height="30" rx="4" fill="#182046" stroke="#5A6DA0"/><circle cx="40" cy="54" r="3" fill="#FFCF5C"/><path d="M33,73 L44,60 L55,73 Z" fill="#35E0FF" opacity="0.6"/><text x="72" y="66" font-size="13" fill="#9AA8D8" font-family="sans-serif">이미지 첨부됨</text><text x="30" y="100" font-size="13.5" fill="#E9EEFF" font-family="sans-serif">업로드한 이미지에서</text><text x="30" y="120" font-size="13.5" fill="#E9EEFF" font-family="sans-serif">키워드를 나열해줘</text></svg>`,
+    iconRow: { icon: "fa-regular fa-image", label: "이미지 첨부됨" },
+    context: "업로드한 이미지에서 키워드를 나열해줘",
     choices: ["멀티모달 프롬프트", "음성인식 프롬프트", "다국어 지원 프롬프트", "체인 프롬프트"], answerText: "멀티모달 프롬프트",
     explain: "텍스트 외에 이미지·음성 등 두 종류 이상의 데이터 유형을 함께 입력하는 것이 멀티모달 프롬프트입니다. (기출 A형 14번)" },
   { type: "mc", q: "다음 챗GPT 응답을 보고, 프롬프트에서 (㉠)에 들어갈 내용으로 옳은 것을 고르시오.",
-    svg: `<svg viewBox="0 0 340 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:400px;display:block;margin:0 auto"><rect width="340" height="220" rx="8" fill="#0F1631"/><rect x="16" y="12" width="308" height="64" rx="6" fill="#182046" stroke="#5A6DA0"/><rect x="26" y="20" width="30" height="30" rx="4" fill="#0F1631" stroke="#35E0FF"/><circle cx="41" cy="35" r="6" fill="#35E0FF" opacity="0.5"/><text x="64" y="39" font-size="12.5" fill="#9AA8D8" font-family="sans-serif">sample_image.png</text><text x="26" y="65" font-size="13" fill="#E9EEFF" font-family="sans-serif">다음 포맷에 맞게 영어로 출력해주세요.</text><rect x="16" y="86" width="308" height="26" rx="4" fill="#FFCF5C" opacity="0.12" stroke="#FFCF5C" stroke-dasharray="4 3"/><text x="170" y="104" font-size="15" font-weight="700" fill="#FFCF5C" font-family="sans-serif" text-anchor="middle">( ㉠ )</text><rect x="16" y="122" width="308" height="80" rx="6" fill="#182046" stroke="#3A4A7A"/><text x="26" y="148" font-size="13" fill="#C7D2F0" font-family="sans-serif">영어: Sunset, Blossoming</text><text x="26" y="166" font-size="13" fill="#C7D2F0" font-family="sans-serif">Tree, Colorful Flowers</text><text x="26" y="188" font-size="13" fill="#C7D2F0" font-family="sans-serif">한글: 선셋, 꽃 나무, 꽃들</text></svg>`,
+    iconRow: { icon: "fa-regular fa-image", label: "sample_image.png (이미지 첨부)" },
+    context: "다음 포맷에 맞게 영어로 출력해주세요.\n\n( ㉠ )\n\n영어: Sunset, Blossoming Tree, Colorful Flowers\n한글: 선셋, 꽃이 피는 나무, 다채로운 꽃들",
     choices: [
       "영문:{바다},{즐거움},{화려함} / 한국어:{바다},{즐거움},{화려함}",
       "영어:{키워드1},{키워드2},{키워드3} / 한글:{키워드1},{키워드2},{키워드3}",
@@ -93,7 +96,8 @@ const QUESTION_BANK = [
     choices: ["한 번에 4개의 이미지가 생성된다", "이미지 해상도가 4배가 된다", "생성 속도가 4배 느려진다", "4가지 색상만 사용된다"], answerText: "한 번에 4개의 이미지가 생성된다",
     explain: "Batch size는 한 번의 실행으로 생성할 이미지의 개수를 지정하는 설정값입니다. (기출 A형 20번 유형)" },
   { type: "mc", q: "챗GPT에서 키워드와 Output in·Tone·Writing Style을 선택해 미드저니용 프롬프트를 생성해주는 크롬 확장프로그램은?",
-    svg: `<svg viewBox="0 0 340 230" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:400px;display:block;margin:0 auto"><rect width="340" height="230" rx="8" fill="#0F1631"/><rect x="14" y="10" width="312" height="210" rx="6" fill="#182046" stroke="#5A6DA0" stroke-width="1.3"/><text x="28" y="34" font-size="14.5" font-weight="700" fill="#E9EEFF" font-family="sans-serif">Midjourney Prompt</text><text x="28" y="54" font-size="14.5" font-weight="700" fill="#E9EEFF" font-family="sans-serif">Generator</text><text x="28" y="80" font-size="13" fill="#9AA8D8" font-family="sans-serif">Output in</text><rect x="28" y="86" width="284" height="26" rx="4" fill="#0F1631" stroke="#3A4A7A"/><text x="38" y="103" font-size="13.5" fill="#E9EEFF" font-family="sans-serif">English</text><text x="28" y="132" font-size="13" fill="#9AA8D8" font-family="sans-serif">Tone</text><rect x="28" y="138" width="284" height="26" rx="4" fill="#0F1631" stroke="#3A4A7A"/><text x="38" y="155" font-size="13.5" fill="#E9EEFF" font-family="sans-serif">Default</text><text x="28" y="184" font-size="13" fill="#9AA8D8" font-family="sans-serif">Writing Style</text><rect x="28" y="190" width="284" height="26" rx="4" fill="#0F1631" stroke="#3A4A7A"/><text x="38" y="207" font-size="13.5" fill="#E9EEFF" font-family="sans-serif">Default</text></svg>`,
+    iconRow: { icon: "fa-solid fa-puzzle-piece", label: "Midjourney Prompt Generator" },
+    context: "Output in: English\nTone: Default\nWriting Style: Default",
     choices: ["ArxivGPT", "DeepL 번역", "프롬프트지니", "AIPRM"], answerText: "AIPRM",
     explain: "AIPRM은 사전 정의된 프롬프트 템플릿과 출력 언어·톤·문체 옵션을 제공하는 챗GPT 확장프로그램입니다. (기출 A형 21번)" },
   { type: "mc", q: "AIPRM에서 답변을 시(詩)처럼 운율 있는 문장으로 생성하고 싶을 때 선택할 Writing Style은?",
@@ -124,8 +128,9 @@ const QUESTION_BANK = [
   { type: "mc", q: "스테이블 디퓨전에서 이미지를 생성할 때 반복(연산)할 횟수를 지정하는 파라미터는?",
     choices: ["샘플링 스텝(Sampling Steps)", "샘플링 메소드(Sampling Method)", "CFG Scale", "Batch Size"], answerText: "샘플링 스텝(Sampling Steps)",
     explain: "샘플링 스텝은 노이즈에서 이미지를 완성해가는 반복 횟수, 샘플링 메소드는 이미지를 그리는 알고리즘(DPM++ 등)을 지정합니다. (기출 A형 34번)" },
-  { type: "mc", q: "다음은 스테이블 디퓨전 Web UI의 화면 구성요소에 대한 그림이다. (㉠)에 들어갈 구성요소로 올바른 것은?",
-    svg: `<svg viewBox="0 0 340 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:400px;display:block;margin:0 auto"><rect width="340" height="300" rx="8" fill="#0F1631"/><rect x="12" y="10" width="316" height="280" rx="6" fill="none" stroke="#3A4A7A" stroke-width="1.5"/><text x="26" y="32" font-size="13.5" fill="#9AA8D8" font-family="sans-serif">Prompt</text><rect x="26" y="38" width="288" height="28" rx="4" fill="#182046" stroke="#3A4A7A"/><text x="36" y="57" font-size="13.5" fill="#E9EEFF" font-family="sans-serif">sleeping cat illustration</text><rect x="26" y="76" width="288" height="26" rx="4" fill="none" stroke="#FFCF5C" stroke-width="1.5" stroke-dasharray="4 3"/><text x="170" y="94" font-size="14.5" font-weight="700" fill="#FFCF5C" font-family="sans-serif" text-anchor="middle">( ㉠ )</text><rect x="26" y="112" width="288" height="40" rx="4" fill="#182046" stroke="#3A4A7A"/><text x="36" y="130" font-size="12.5" fill="#FF7488" font-family="sans-serif">lowres, bad anatomy,</text><text x="36" y="146" font-size="12.5" fill="#FF7488" font-family="sans-serif">bad hands, worst quality</text><text x="26" y="182" font-size="13.5" fill="#9AA8D8" font-family="sans-serif">Sampling steps</text><rect x="26" y="190" width="220" height="9" rx="4" fill="#3A4A7A"/><rect x="26" y="190" width="66" height="9" rx="4" fill="#35E0FF"/><text x="256" y="199" font-size="13.5" fill="#E9EEFF" font-family="sans-serif">20</text><text x="26" y="222" font-size="13.5" fill="#9AA8D8" font-family="sans-serif">CFG scale</text><rect x="26" y="230" width="220" height="9" rx="4" fill="#3A4A7A"/><rect x="26" y="230" width="33" height="9" rx="4" fill="#35E0FF"/><text x="256" y="239" font-size="13.5" fill="#E9EEFF" font-family="sans-serif">6</text><text x="26" y="262" font-size="13.5" fill="#9AA8D8" font-family="sans-serif">Batch size</text><rect x="26" y="270" width="220" height="9" rx="4" fill="#3A4A7A"/><rect x="26" y="270" width="99" height="9" rx="4" fill="#35E0FF"/><text x="256" y="279" font-size="13.5" fill="#E9EEFF" font-family="sans-serif">4</text></svg>`,
+  { type: "mc", q: "다음은 스테이블 디퓨전 Web UI의 화면 구성요소이다. (㉠)에 들어갈 구성요소로 올바른 것은?",
+    iconRow: { icon: "fa-solid fa-sliders", label: "Stable Diffusion Web UI" },
+    context: "Prompt: sleeping cat illustration\n\n( ㉠ ): lowres, bad anatomy, bad hands, worst quality\n\nSampling steps: 20\nCFG scale: 6\nBatch size: 4",
     choices: ["프롬프트(Prompt)", "제너레이트(Generate)", "최대 피드백 이미지(Max. feedback images)", "네거티브 프롬프트(Negative Prompt)"], answerText: "네거티브 프롬프트(Negative Prompt)",
     explain: "네거티브 프롬프트는 이미지에 포함되지 않았으면 하는 요소(저해상도, 나쁜 손 모양 등)를 지정하는 입력란으로, 프롬프트란 바로 아래에 위치합니다. (기출 B형 14번)" },
   { type: "mc", q: "다음 중 인공지능의 원리가 아닌 것은?",
@@ -1709,6 +1714,14 @@ function AiPotQuest() {
               {q.context.split(q.blank).map((part, i, arr) => i < arr.length - 1
                 ? <React.Fragment key={i}>{part}<b style={{ color: "#04101f", background: C.gold, borderRadius: 4, padding: "0 4px" }}>{q.blank}</b></React.Fragment>
                 : part)}
+            </div>
+          )}
+
+          {/* 단답형·객관식 공통: 아이콘+라벨 한 줄 (Font Awesome, 파일 첨부 표시 등) */}
+          {(q.type === "short" || q.type === "mc") && q.iconRow && (
+            <div style={{ display: "flex", alignItems: "center", gap: 8, background: "rgba(0,0,0,0.3)", border: `1px solid ${C.line}`, borderRadius: 12, padding: "10px 14px", marginBottom: 8 }}>
+              <i className={q.iconRow.icon} style={{ fontSize: 16, color: C.cyan }}></i>
+              <span style={{ fontSize: 13, color: C.dim }}>{q.iconRow.label}</span>
             </div>
           )}
 
