@@ -1846,21 +1846,6 @@ function AiPotQuest() {
             </div>
           )}
 
-          {/* 단답형·객관식 공통: 아이콘+라벨 한 줄 (Font Awesome, 파일 첨부 표시 등) */}
-          {(q.type === "short" || q.type === "mc") && q.iconRow && (
-            <div style={{ display: "flex", alignItems: "center", gap: 8, background: "rgba(0,0,0,0.3)", border: `1px solid ${C.line}`, borderRadius: 12, padding: "10px 14px", marginBottom: 8 }}>
-              <i className={q.iconRow.icon} style={{ fontSize: 16, color: C.cyan }}></i>
-              <span style={{ fontSize: 13, color: C.dim }}>{q.iconRow.label}</span>
-            </div>
-          )}
-
-          {/* 단답형·객관식 공통: 제시문(보기) 박스 */}
-          {(q.type === "short" || q.type === "mc") && q.context && (
-            <div style={{ whiteSpace: "pre-wrap", fontSize: 13, lineHeight: 1.7, color: C.text, background: "rgba(0,0,0,0.3)", border: `1px solid ${C.line}`, borderRadius: 12, padding: "12px 14px", marginBottom: 14 }}>
-              {q.context}
-            </div>
-          )}
-
           <div style={{ fontSize: 17.5, lineHeight: 1.65, fontWeight: 600, marginBottom: 18 }}>{q.q}</div>
 
           {q.svg && (
@@ -1871,6 +1856,19 @@ function AiPotQuest() {
           {q.img && (
             <div style={{ marginBottom: 18, borderRadius: 12, overflow: "hidden", border: `1px solid ${C.line}`, background: "rgba(0,0,0,0.2)", textAlign: "center" }}>
               <img src={q.img} alt="문제 참고 이미지" style={{ maxWidth: "100%", maxHeight: 320, display: "inline-block" }} />
+            </div>
+          )}
+
+          {/* 객관식·단답형 공통: 시험지 순서대로 문제 → 이미지 → (아이콘 라벨) → 제시문(보기) 박스 → 선택지/답안 입력 */}
+          {(q.type === "mc" || q.type === "short") && q.iconRow && (
+            <div style={{ display: "flex", alignItems: "center", gap: 8, background: "rgba(0,0,0,0.3)", border: `1px solid ${C.line}`, borderRadius: 12, padding: "10px 14px", marginBottom: 8 }}>
+              <i className={q.iconRow.icon} style={{ fontSize: 16, color: C.cyan }}></i>
+              <span style={{ fontSize: 13, color: C.dim }}>{q.iconRow.label}</span>
+            </div>
+          )}
+          {(q.type === "mc" || q.type === "short") && q.context && (
+            <div style={{ whiteSpace: "pre-wrap", fontSize: 13, lineHeight: 1.7, color: C.text, background: "rgba(0,0,0,0.3)", border: `1px solid ${C.line}`, borderRadius: 12, padding: "12px 14px", marginBottom: 18 }}>
+              {q.context}
             </div>
           )}
 
