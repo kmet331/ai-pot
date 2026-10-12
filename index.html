@@ -4,6 +4,16 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>AI-POT 2급 QUEST</title>
+<link rel="icon" href="favicon.ico" sizes="any" />
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png" />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#0B1023" />
+<meta name="description" content="AI프롬프트활용능력 2급 3D 스테이지 모의고사" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-title" content="AI-POT QUEST" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <style>
   html, body { margin:0; padding:0; background:#0B1023; height:100%; }
@@ -937,6 +947,15 @@ function shuffle(arr) {
   return a;
 }
 
+/* ---------- 홈 화면에 추가: 접속 환경 감지 ---------- */
+function detectInstallEnv() {
+  const ua = (typeof navigator !== "undefined" && navigator.userAgent) || "";
+  const inApp = /KAKAOTALK|NAVER\(inapp|Instagram|FBAN|FBAV|Line\/|DaumApps/i.test(ua); // 앱 안 브라우저(홈 화면 추가 불가)
+  const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1); // iPadOS 포함
+  const isAndroid = /Android/i.test(ua);
+  return { inApp, isIOS, isAndroid };
+}
+
 const TOTAL = 40; // 한 회차 출제 문항 수 (스테이지 수)
 
 /* ---------- 크레딧 (제작자 이름을 원하는 대로 수정하세요) ---------- */
@@ -1441,7 +1460,55 @@ function AiPotQuest() {
   const [selected, setSelected] = useState(null);        // 아직 제출 전인 임시 선택/입력값
   const [answers, setAnswers] = useState(() => Array(TOTAL).fill(null)); // 스테이지 인덱스에 고정된 풀이 기록
   const [panelOpen, setPanelOpen] = useState(false);
-  const [panelFilter, setPanelFilter] = useState("all"); // "all" | "wrong" — 문제 해설 패널에서 오답만 모아보기
+  const [panelFilter, setPanelFilter] = useState("all");
+
+  /* ---------- 홈 화면에 추가 (PWA 설치) ---------- */
+  const [installModal, setInstallModal] = useState(null); // null | "ios" | "android" | "pc" | "kakao"
+  const [installed, setInstalled] = useState(false);       // 이미 앱으로 설치해서 연 경우 버튼 숨김
+  const [urlCopied, setUrlCopied] = useState(false);       // false | "ok" | "fail"
+  const deferredPromptRef = useRef(null);
+  useEffect(() => {
+    const standalone = (window.matchMedia && window.matchMedia("(display-mode: standalone)").matches) || window.navigator.standalone === true;
+    if (standalone) setInstalled(true);
+    const onBefore = (e) => { e.preventDefault(); deferredPromptRef.current = e; }; // 브라우저 기본 배너 대신 우리 버튼으로 설치 팝업을 띄움
+    const onInstalled = () => { deferredPromptRef.current = null; setInstalled(true); setInstallModal(null); };
+    window.addEventListener("beforeinstallprompt", onBefore);
+    window.addEventListener("appinstalled", onInstalled);
+    return () => { window.removeEventListener("beforeinstallprompt", onBefore); window.removeEventListener("appinstalled", onInstalled); };
+  }, []);
+  useEffect(() => {
+    if (!installModal) return;
+    const onKey = (e) => { if (e.key === "Escape") setInstallModal(null); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [installModal]);
+  const handleInstallClick = async () => {
+    const env = detectInstallEnv();
+    if (env.inApp) { setInstallModal("kakao"); return; }
+    const dp = deferredPromptRef.current;
+    if (dp) { // 안드로이드·PC Chrome/Edge: 브라우저 설치 팝업을 바로 띄움
+      try { dp.prompt(); await dp.userChoice; } catch (e) { /* 무시 */ }
+      deferredPromptRef.current = null; // prompt()는 한 번만 사용 가능
+      return;
+    }
+    setInstallModal(env.isIOS ? "ios" : env.isAndroid ? "android" : "pc");
+  };
+  const copyPageUrl = async () => {
+    const url = window.location.href;
+    let ok = false;
+    try { if (navigator.clipboard && window.isSecureContext) { await navigator.clipboard.writeText(url); ok = true; } } catch (e) { /* 아래 대체 방식 */ }
+    if (!ok) {
+      try {
+        const ta = document.createElement("textarea");
+        ta.value = url; ta.style.position = "fixed"; ta.style.left = "-9999px";
+        document.body.appendChild(ta); ta.focus(); ta.select();
+        ok = document.execCommand("copy");
+        document.body.removeChild(ta);
+      } catch (e) { ok = false; }
+    }
+    setUrlCopied(ok ? "ok" : "fail");
+    setTimeout(() => setUrlCopied(false), 2200);
+  }; // "all" | "wrong" — 문제 해설 패널에서 오답만 모아보기
   const resultsRef = useRef(Array(TOTAL).fill(null));    // 3D 플랫폼 색상용
   const panelBodyRef = useRef(null);
   const itemRefs = useRef({});                           // 해설 패널의 스테이지별 DOM 참조 (자동 스크롤용)
@@ -1661,6 +1728,61 @@ function AiPotQuest() {
         </div>
       </div>
 
+      {/* ---------- 홈 화면 추가 안내창 ---------- */}
+      {installModal && (() => {
+        const Ico = ({ c }) => <span style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", width: 26, height: 26, borderRadius: 7, background: "rgba(53,224,255,.14)", border: `1px solid rgba(53,224,255,.45)`, margin: "0 4px", verticalAlign: "middle" }}><i className={c} style={{ fontSize: 13, color: C.cyan }}></i></span>;
+        const Step = ({ n, children }) => (
+          <div style={{ display: "flex", gap: 12, alignItems: "flex-start", marginBottom: 14 }}>
+            <div style={{ flex: "0 0 26px", height: 26, borderRadius: 13, background: C.gold, color: "#04101f", fontWeight: 700, fontSize: 14, display: "flex", alignItems: "center", justifyContent: "center", marginTop: 1 }}>{n}</div>
+            <div style={{ fontSize: 14.5, lineHeight: 1.75, color: C.text }}>{children}</div>
+          </div>
+        );
+        const V = {
+          ios: { title: "홈 화면에 추가하기", sub: "아이폰 · 아이패드 (Safari)", steps: [
+            <>화면 아래쪽의 공유 버튼<Ico c="fa-solid fa-arrow-up-from-bracket" />을 눌러요</>,
+            <>메뉴를 아래로 내려 <b>'홈 화면에 추가'</b><Ico c="fa-regular fa-square-plus" />를 선택해요</>,
+            <>오른쪽 위 <b>'추가'</b>를 누르면 끝!</>],
+            note: "Safari 기준 안내예요. 카카오톡·네이버 앱 안에서 열었다면 먼저 Safari로 열어주세요." },
+          android: { title: "홈 화면에 추가하기", sub: "안드로이드 (Chrome · 삼성 인터넷)", steps: [
+            <>오른쪽 위 메뉴<Ico c="fa-solid fa-ellipsis-vertical" />를 눌러요</>,
+            <><b>'홈 화면에 추가'</b> 또는 <b>'앱 설치'</b>를 선택해요</>,
+            <><b>'설치'</b>(또는 '추가')를 누르면 끝!</>] },
+          pc: { title: "바탕화면에 앱으로 설치하기", sub: "PC (Chrome · Edge)", steps: [
+            <>주소창 오른쪽 끝의 설치 아이콘<Ico c="fa-solid fa-download" />을 눌러요 <span style={{ color: C.dim }}>(안 보이면 ⋮ 메뉴 → '앱 설치')</span></>,
+            <><b>'설치'</b>를 누르면 바탕화면·시작 메뉴에 바로가기가 생겨요</>,
+            <>이후엔 앱처럼 독립 창으로 열려요</>],
+            note: "Firefox는 앱 설치를 지원하지 않아요. 북마크(Ctrl+D)로 저장해 두세요." },
+          kakao: { title: "다른 브라우저로 열기", sub: "카카오톡 같은 앱 안에서는 홈 화면 추가가 안 돼요", steps: [
+            <>화면 오른쪽 아래(또는 위) 메뉴<Ico c="fa-solid fa-ellipsis" />를 눌러요</>,
+            <><b>'다른 브라우저로 열기'</b> 또는 <b>'Safari / Chrome으로 열기'</b>를 선택해요</>,
+            <>열린 화면에서 <b>'홈 화면에 추가'</b> 버튼을 다시 눌러요</>],
+            copy: true },
+        }[installModal];
+        return (
+          <div role="dialog" aria-modal="true" onClick={() => setInstallModal(null)} style={{ position: "fixed", inset: 0, zIndex: 100, background: "rgba(3,6,18,0.74)", backdropFilter: "blur(6px)", WebkitBackdropFilter: "blur(6px)", display: "flex", alignItems: "center", justifyContent: "center", padding: 16 }}>
+            <div onClick={(e) => e.stopPropagation()} style={{ width: "min(420px, 100%)", maxHeight: "92vh", overflowY: "auto", background: "#0F1631", border: `1px solid ${C.line}`, borderRadius: 18, padding: "22px 22px 18px", boxShadow: "0 20px 60px rgba(0,0,0,0.6)" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 18 }}>
+                <img src="icon-192.png" alt="" style={{ width: 54, height: 54, borderRadius: 13, flex: "0 0 54px" }} />
+                <div>
+                  <div style={{ ...S.display, fontSize: 20, color: C.cyan, lineHeight: 1.25 }}>{V.title}</div>
+                  <div style={{ fontSize: 12.5, color: C.dim, marginTop: 3 }}>{V.sub}</div>
+                </div>
+              </div>
+              {V.steps.map((s, i) => <Step key={i} n={i + 1}>{s}</Step>)}
+              {V.note && (
+                <div style={{ fontSize: 12.5, lineHeight: 1.6, color: C.gold, background: "rgba(255,207,92,.08)", border: "1px solid rgba(255,207,92,.3)", borderRadius: 10, padding: "9px 12px", margin: "4px 0 14px" }}>
+                  <i className="fa-solid fa-circle-info" style={{ marginRight: 7 }}></i>{V.note}
+                </div>
+              )}
+              <div style={{ display: "flex", gap: 8, marginTop: 6 }}>
+                {V.copy && <button onClick={copyPageUrl} style={{ ...S.nav(false), flex: 1, padding: "11px 10px", fontSize: 14, borderColor: "rgba(53,224,255,.5)", color: C.cyan }}><i className={urlCopied === "ok" ? "fa-solid fa-check" : "fa-regular fa-copy"} style={{ marginRight: 7 }}></i>{urlCopied === "ok" ? "복사됨!" : urlCopied === "fail" ? "복사 실패" : "주소 복사하기"}</button>}
+                <button onClick={() => setInstallModal(null)} style={{ ...S.nav(false), flex: 1, padding: "11px 10px", fontSize: 14 }}>닫기</button>
+              </div>
+            </div>
+          </div>
+        );
+      })()}
+
       {/* ---------- 인트로 ---------- */}
       {phase === "intro" && (
         <div style={S.cardWrap}>
@@ -1677,7 +1799,14 @@ function AiPotQuest() {
             <div style={{ marginBottom: 10 }}>◀▶ 이전/다음 버튼과 해설 패널로 40문제를 어떤 순서로든 자유롭게 이동할 수 있어요 (푼 문제는 수정 불가)</div>
             <div>📋 <b>문제 해설</b> 패널에 풀이 기록과 해설이 쌓입니다</div>
           </div>
-          <button style={S.primary} onClick={() => setPhase("quiz")}>게임 시작 ▶</button>
+          <div style={{ display: "flex", gap: 10, justifyContent: "center", alignItems: "stretch", flexWrap: "wrap" }}>
+            <button style={S.primary} onClick={() => setPhase("quiz")}>게임 시작 ▶</button>
+            {!installed && (
+              <button onClick={handleInstallClick} title="홈 화면에 추가" style={{ cursor: "pointer", background: "transparent", border: `1px solid ${C.line}`, color: C.text, borderRadius: 12, padding: "0 16px", fontSize: 14, fontFamily: "inherit", whiteSpace: "nowrap" }}>
+                <i className="fa-solid fa-star" style={{ marginRight: 8, color: C.cyan }}></i>홈 화면에 추가
+              </button>
+            )}
+          </div>
         </div>
         </div>
       )}
@@ -2055,6 +2184,7 @@ function AiPotQuest() {
     </div>
   );
 }
+
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(<AiPotQuest />);
